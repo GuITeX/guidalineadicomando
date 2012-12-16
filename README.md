@@ -1,8 +1,7 @@
-<<<<<<< HEAD
 Guida alla riga di comando
 ===========================
 
-Contiene i sorgenti LaTeX della Guida tematica alla riga di comando.
+Questo repository contiene i sorgenti LaTeX della Guida tematica alla riga di comando.
 La guida fa parte del progetto *Guide Tematiche* per la diffusione di documentazione di alta qualità centrata su argomenti specifici sul sistema TeX, condotto dal Gruppo Italiano di utilizzatori di TeX [www.guitex.org](http://www.guitex.org).
 
 Il materiale è disponibile nella sezione documentazione del sito del GuIT a [questo link](http://www.guitex.org/home/it/guide-tematiche).
@@ -14,7 +13,7 @@ Contenuti
 
 La [*Guida alla riga di comando*](http://www.guitex.org/home/images/doc/GuideGuIT/guidaconsole.pdf) contiene informazioni per consentire all'utente alle prime armi di lavorare con i comandi della shell di sistema sui principali sistemi operativi: OS X, Windows e Linux.
 
-Una sezione operativa contiene esercizi da svolgere al terminale per prendere definitivamente confidenza con la console e raggiungere rapidamente i propri obiettivi di conoscenza, in particolare per lavorare con i programmi di composizione tipografica del mondo TeX.
+Una sezione operativa contiene esercizi da svolgere al terminale per prendere definitivamente confidenza con la console e raggiungere rapidamente i propri obiettivi di conoscenza, in particolare per imparare a lavorare con i programmi di composizione tipografica del mondo TeX.
 
 Collaborazione
 --------------
@@ -24,7 +23,9 @@ Con l'intento di rendere lo sviluppo delle guide tematiche *collaborativo* è sta
 Compilazione dei sorgenti della guida
 -------------------------------------
 
-Per la compilazione con *pdflatex* è necessario scaricare i file della classe 'guidatematica.cls' disponibile nel [repo GuITeX](https://github.com/GuITeX "Repository GuITeX.org").
+Per la compilazione con *pdflatex* è necessario scaricare i file della classe 'guidatematica.cls' disponibile nel [repo GuITeX](https://github.com/GuITeX "Repository GuITeX.org"), ed installarli nell'albero locale della propria distribuzione TeX.
+
+I file sorgenti sono dotati delle righe magiche per la predisposizione alla compilazione con l'editor TeX Works od altri editor che supportano tale funzionalità.
 
 Licenza
 -------
@@ -42,16 +43,12 @@ Tu sei libero di riprodurre, distribuire, comunicare al pubblico, esporre in pub
 Ringraziamenti
 --------------
 
-Ringraziamo tutti quelli che hanno contribuito con suggerimenti, segnalazioni di refusi, idee la *Guida alla riga di comando*.
+Ringrazio tutti quelli che hanno contribuito con suggerimenti, segnalazioni di refusi, ed idee alla *Guida alla riga di comando*. Alcuni amici sono citati all'interno della guida alla sezione *Ringraziamenti*.
 
 Contatti
 --------
 
-Se volete potete scrivermi all'indirizzo di posta elettronica seguente:
-giaconet dot mailbox @ gmail dot com
-=======
-guidalineadicomando
-===================
+Se volete potete scrivermi all'indirizzo di posta elettronica seguente: giaconet dot mailbox at gmail dot com
 
-Contiene i sorgenti LaTeX della Guida tematica alla riga di comando
->>>>>>> 3b1641c98276925af62b0b448c32f641b78896cc
+Buona lettura!
+
