@@ -1,0 +1,20 @@
+#!/usr/bin/lua
+
+local function prt( s )
+   print("   "..s)
+end
+
+
+
+
+prt ""
+prt "Titolo:  Guida tematica alla riga di comando"
+prt ""
+prt "Collana: Le guide tematiche del GuIT"
+prt "Autore:  Roberto Giacomelli"
+prt "E-mail:  giaconet.mailbox@gmail.com"
+prt "Version: 1.1.1"
+prt "Data:    22 novembre 2012"
+prt ""
+
+-- end of file

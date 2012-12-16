@@ -1,0 +1,278 @@
+% !TEX encoding = UTF-8
+% !TEX program = pdflatex
+% !TEX root = ../guidaConsole.tex
+
+\chapter{Esercitazioni}
+\label{chapEser}
+
+Le esercitazioni sono applicazioni pratiche orientate all'utilizzo del sistema \TeX{} dalla riga di comando, e basate sui concetti di funzionamento della shell. Mettere in pratica i comandi illustrati richiede di conoscere il modo in cui si avvia la shell sul proprio computer (in caso consulta la sezione~\ref{secAvvio} di pagina~\pageref{secAvvio}).
+
+\section{Cambiare directory di lavoro}
+
+Su tutti i sistemi il comando per cambiare la directory di lavoro della shell è \texttt{cd} che sta per \textbf{c}hange \textbf{d}irectory:
+
+\begin{tcolorbox}
+\begin{verbatim}
+$ cd <path>
+\end{verbatim}
+\end{tcolorbox}
+
+La sintassi prevede di specificare come primo argomento il percorso della directory. Il comando dato senza argomenti, sui sistemi Unix riporta la directory di lavoro alla \texttt{home} dell'utente, su quelli Windows invece, stampa semplicemente la directory di lavoro attuale, per altro informazione già riportata nel prompt (in Unix la stampa della directory corrente si ottiene con il comando \texttt{pwd}, \textbf{p}rint \textbf{w}orking \textbf{d}irectory).
+
+Nella digitazione dei path è molto comodo avvalersi del \emph{completamento automatico}, che funziona premendo il tasto \keys{Tab} dopo aver digitato un numero sufficiente di caratteri da individuare univocamente una directory, così da non dover più digitarne il nome per intero.
+
+Provare ad impostare la directory di lavoro al valore di \verb=/usr/bin= in Linux e \verb=C:\Document and Settings= in Windows XP o \verb=C:\Users= in Windows 7.
+
+Per risalire al nodo superiore del file system digitare poi il comando \verb=$ cd ..=
+
+\section{Elencare i file}
+
+Una delle necessità più frequenti dell'utente è quella di stampare a video l'elenco delle cartelle e dei file presenti in un nodo del file system. In Windows il comando per farlo è \texttt{dir}, mentre negli altri sistemi è \texttt{ls} (\textbf{l}i\textbf{s}t file). Apriamo una finestra di console e digitiamo il comando senza argomenti per mostrare il contenuto della directory di lavoro.
+
+\noindent\begin{tcolorbox}[width=(\linewidth-6pt)/2,before=,after=\hfill]
+Windows\tcblower
+\begin{verbatim}
+> dir
+\end{verbatim}
+\end{tcolorbox}
+\begin{tcolorbox}[width=(\linewidth-6pt)/2,before=,after=\hfill]
+Linux e Mac OS X\tcblower
+\begin{verbatim}
+$ ls
+\end{verbatim}
+\end{tcolorbox}
+
+Possiamo utilizzare filtri per elencare file corrispondenti a particolari criteri. Il carattere asterisco \texttt{*} sta per qualsiasi sequenza di caratteri. Il carattere \texttt{?} sta per un qualsiasi singolo carattere. Alla riga di comando proviamo quindi ad elencare i sorgenti \texttt{.tex} (questa è l'estensione standard per i nomi dei file sorgenti del sistema \TeX):
+
+\noindent\begin{tcolorbox}[width=(\linewidth-6pt)/2,before=,after=\hfill]
+Windows\tcblower
+\begin{verbatim}
+> dir *.tex
+\end{verbatim}
+\end{tcolorbox}
+\begin{tcolorbox}[width=(\linewidth-6pt)/2,before=,after=\hfill]
+Linux e Mac OS X\tcblower
+\begin{verbatim}
+$ ls *.tex
+\end{verbatim}
+\end{tcolorbox}
+
+\`E possibile elencare i file contenuti in qualsiasi directory specificandone il percorso completo indipendentemente dalla directory di lavoro.
+
+Ecco una sessione di lavoro in Linux per elencare i file nella directory principale dei contenuti di questa guida. Per prima cosa si imposta la directory di lavoro e poi si chiede la stampa della lista dei file contenuti poi, rilevata la presenza di una sotto cartella \texttt{section}, si chiede l'elenco dei sorgenti \TeX{} a sua volta in essa contenuti:
+
+\begin{Verbatim}[fontsize=\small]
+$ cd Scrivania/guidaConsole/
+$ ls
+guidaConsole.aux  guidaConsole.pdf         guidaConsole.toc
+guidaConsole.log  guidaConsole.synctex.gz  image
+guidaConsole.out  guidaConsole.tex         section
+
+$ ls section/*.tex
+section/argavanz.tex  section/intro.tex       section/premessa.tex
+section/eser.tex      section/notefinali.tex  section/shell.tex
+\end{Verbatim}
+
+\section{Spostare o copiare file}
+
+Per spostare i file tra una directory e l'altra, si utilizza il comando \texttt{mv} (\textbf{m}o\textbf{v}e), specificando come argomenti prima il percorso del file attuale poi quello di destinazione. In Windows il comando si chiama \texttt{move}.
+\smallskip
+\begin{tcolorbox}
+Windows
+\tcblower
+\begin{verbatim}
+> move <source path> <destination path>
+\end{verbatim}
+\end{tcolorbox}
+
+\begin{tcolorbox}
+Linux e Mac OS X
+\tcblower
+\begin{verbatim}
+$ mv <source path> <destination path>
+\end{verbatim}
+\end{tcolorbox}
+
+Se il percorso di destinazione punta alla stessa directory di partenza, il comando \texttt{mv} rinomina il file.
+
+\section{Rinominare file}
+
+Cambiare nome ad un file è un operazione concettualmente equivalente allo spostamento perché in entrambe i casi si tratti di modificarne il percorso. Torna utile specie se vi trovate ad utilizzare Windows che solitamente è impostato\footnote{\`E preferibile non farlo ma per cambiare questa opzione cliccare col destro sulla finestra grafica dell'Explorer e dal dialogo delle proprietà togliere la spunta su ``Nascondi l'estensione dei file''.} per nascondere la estensioni dei file, rendendo impossibile cambiarla in modalità grafica.
+
+Il comando da usare è \texttt{rename} con la stessa sintassi per tutti i sistemi:
+
+\begin{tcolorbox}
+\begin{verbatim}
+$ rename <old_name> <new_name>
+\end{verbatim}
+\end{tcolorbox}
+
+Per esempio, rinominare il file \texttt{uno.tex} --- presente nella directory di lavoro ---, in \texttt{due.tex}, l'istruzione da riga di comando è:
+\begin{verbatim}
+$ rename uno.tex due.tex
+\end{verbatim}
+
+\section{Verificare l'installazione \TeX}
+
+Dopo l'installazione di una distribuzione \TeX{} è possibile verificare il funzionamento dei programmi con semplici comandi da console. Per prima cosa ci si chiede se il sistema riconosce gli eseguibili dei motori di composizione. In altre parole, il \texttt{PATH} di sistema dovrà contenere il percorso degli eseguibili, che appositamente per questo sono contenuti tutti in un'unica directory.
+
+Per esempio, il seguente comando avrà successo se gli eseguibili sono correttamente installati e configurati:
+\begin{verbatim}
+$ pdftex -version
+\end{verbatim}
+
+Compiliamo adesso un sorgente \TeX{} veramente minimo che contiene solo un paio di parole, inserendo questo codice in un file, naturalmente di estensione \texttt{.tex}, che chiameremo \texttt{testtex.tex}:
+\begin{verbatim}
+Ciao Mondo da \TeX!
+\bye
+\end{verbatim}
+
+Una volta impostata la directory di lavoro in modo che coincida con quella contenente il sorgente di prova, il comando di compilazione per la verifica di funzionamento è:
+\begin{verbatim}
+$ tex testtex
+\end{verbatim}
+
+Otteniamo un file di uscita con estensione \texttt{dvi} \emph{Device Indipendent}, il formato classico di \TeX{} che --- l'occasione è buona per verificare il funzionamento di alcuni utili programmi compresi nelle distribuzioni e quindi già in dotazione --- convertiamo in \texttt{pdf} \emph{Portable Document Format} con il tradizionale doppio passaggio, il primo da \texttt{dvi} al formato \texttt{ps} \emph{Postscript} con il driver \texttt{dvips} ed il secondo da Postscript a \texttt{pdf}:
+\begin{verbatim}
+$ dvips testtex     -- conversione dvi --> ps
+$ ps2pdf testtex.ps -- conversione  ps --> pdf
+\end{verbatim}
+
+Oggi questi passaggi di formato si utilizzano raramente perché si lavora direttamente e convenientemente con il formato di uscita \texttt{pdf}, come faremo tra poco con \texttt{pdflatex}.
+
+A questo punto dovreste aver correttamente ottenuto i messaggi di compilazione in console e tutti i file di uscita previsti. Non rimane che verificare il funzionamento di \LaTeX{} con questo piccolo sorgente da inserire in un file di testo che chiameremo \texttt{testlatex.tex}:
+\begin{Verbatim}[fontsize=\small]
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+
+\begin{document}
+   Ciao Mondo da \LaTeX!
+\end{document}
+\end{Verbatim}
+
+Il comando di compilazione sarà quindi il seguente che produrrà in uscita il file nel formato \texttt{PDF}:
+\begin{verbatim}
+$ pdflatex testlatex
+\end{verbatim}
+
+Possiamo completare le verifiche all'installazione provando il corretto funzionamento dello strumento \texttt{pdfcrop}. Si tratta di un programma a riga di comando scritto in \texttt{perl} che, appoggiandosi a \textsf{Ghostscript}, ritaglia un documento \texttt{pdf} eliminando i contorni fino a raggiungere le dimensioni minime del contenuto, operazione che facilita l'inclusione nei documenti \LaTeX{} dei contenuti \texttt{pdf}.
+
+Per eseguire una prova sul file \texttt{testlatex.pdf} appena creato, impostate in una sessione di terminale la directory corrente a quella contenente il documento da scontornare e date il seguente comando al termine del quale dovreste trovare nella stessa directory del file originale un nuovo file dal nome \texttt{testlatex-crop.pdf} correttamente scontornato:
+\begin{verbatim}
+$ pdfcrop testlatex.pdf
+\end{verbatim}
+
+Lo strumento utilissimo \texttt{pdfcrop} accetta molte opzioni. Le più importanti sono \texttt{--margin <valore>}, con cui si imposta un margine attorno al rettangolo ritagliato esprimendo misure in punti, \texttt{--hires} per il calcolo in alta risoluzione del \emph{bounding box} che è appunto il rettangolo minimo che contiene gli oggetti nella pagina, e la possibilità di impostare il nome del file ritagliato semplicemente scrivendolo di seguito al nome del file originale.
+
+Per esempio, per scontornare il file di prova precedente lasciando comunque un margine di 5 punti e sostituendo il file su disco con quello ritagliato, il comando è il seguente (per comodità utilizzate il completamento automatico premendo il tasto \keys{Tab} per produrre facilmente i nomi dei file):
+\begin{verbatim}
+$ pdfcrop --margin 5 testlatex.pdf testlatex.pdf
+\end{verbatim}
+
+
+La riga di comando ci ha permesso di verificare l'installazione del sistema \TeX. Per completezza occorre aggiungere che alcuni shell editor come Kile per Linux od il multi-piattaforma TeXWorks, dispongono di un apposita voce di menù che si occupa di lanciare le compilazioni di verifica della corretta installazione dei programmi della distribuzione \TeX{} informando l'utente sul funzionamento del sistema.
+
+\section{Compilare un documento sorgente}
+
+La sintassi generale per compilare un file sorgente con uno dei programmi del sistema \TeX{} è la seguente, dove il nome del file compare senza estensione:
+
+\medskip
+\texttt{\$ \prog{programma-di-composizione} \meta{--opzioni} \meta{nome del file}}
+\medskip
+
+Un sorgente \LaTeX{} può essere compilato sia con il programma \texttt{latex} sia con \texttt{pdflatex}. La differenza è che con il primo si ottiene il documento nel formato \texttt{dvi} e con il secondo nel formato \texttt{pdf}. Per molte buone ragioni è preferibile utilizzare \texttt{pdflatex}:
+\begin{tcolorbox}
+Windows, Linux e Mac OS X
+\tcblower
+\ttfamily
+\$ \prog{pdflatex} \meta{nomefile senza estensione}
+\end{tcolorbox}
+
+\subsection{L'opzione \texttt{-shell-escape}}
+
+Per ragioni di sicurezza del sistema, alcuni pacchetti \LaTeX{} come \textsf{pgfplots} o \textsf{gmp} richiedono compilazioni con l'opzione \texttt{-shell-escape} per abilitare il compositore all'esecuzione di programmi esterni. Coerentemente alla sintassi generale illustrata alla sezione~\ref{chapConsole}, il comando di compilazione diventa:
+
+\medskip
+\texttt{\$ \prog{pdflatex} -shell-escape \meta{nomefile senza estensione}}
+\medskip
+
+Questo comando è utile perché a volte si preferisce lanciarlo da riga di comando piuttosto che configurare l'editor per aggiungere nell'elenco dei comandi di compilazione questa opzione, anche se solitamente è molto più comodo lanciare il comando all'interno dell'editor grafico piuttosto che scomodare la console.
+
+\section{Documentarsi con \textsf{texdoc}}
+
+Uno dei programmi più utili di una distribuzione \TeX{} è senza dubbio l'utility \texttt{texdoc} che permette di accedere rapidamente alla documentazione di un pacchetto o di un programma di composizione, generalmente in formato \texttt{pdf}.
+
+Per visualizzare la guida di un pacchetto particolare il comando è:
+\begin{tcolorbox}
+\ttfamily
+\$ \prog{texdoc} \meta{nome pacchetto}
+\end{tcolorbox}
+
+Invece, se non si è sicuri del nome del pacchetto o se si cerca documentazione per un dato argomento, si utilizza l'opzione \texttt{-l} che sta per \emph{list}, per ottenere l'elenco dei documenti riguardanti una particolare chiave di ricerca:
+\begin{verbatim}
+$ texdoc -l chiave
+\end{verbatim}
+
+Per esempio provate a cercare con \texttt{texdoc} la documentazione riguardante Metapost, un linguaggio per il disegno programmato. Per la distribuzione \TeX{}~Live~2012 l'utility troverà i seguenti documenti visualizzabili dando il numero corrispondente --- per questo \texttt{texdoc} è un programma con un minimo di funzionalità interattive:
+\begin{Verbatim}[fontsize=\small]
+$ texdoc -l metapost
+1 /usr/local/texlive/2012/texmf-dist/doc/metapost/base/mpman.pdf
+2 /usr/local/texlive/2012/texmf-dist/doc/latex/pdfslide/mpgraph.pdf
+3 /usr/local/texlive/2012/texmf-dist/doc/metapost/base/mpgraph.pdf
+4 /usr/local/texlive/2012/texmf-dist/doc/metapost/base/mpintro.pdf
+Please enter the number of the file to view, anything else to skip: 
+\end{Verbatim}
+
+Oppure, per consultare il manuale del programma \texttt{pdflatex} con l'illustrazione della sintassi del comando e di tutte le opzioni possibili, come l'impostazione del nome del file di uscita (\texttt{-jobname <name>}), l'impostazione di un formato precompilato per velocizzare la compilazione (\texttt{-fmt <format>}), l'impostazione del modo di interazione durante la compilazione (\texttt{-interaction <mode>}) e molto altro ancora, digitate:
+\begin{verbatim}
+$ texdoc pdflatex
+\end{verbatim}
+
+\section{Gestione di \TeX\ Live}
+
+La distribuzione \TeX\ Live scaricabile da \textsc{ctan} è dotata dell'utility \texttt{tlmgr} (\TeX\ Live manager)\footnote{Alcune distribuzioni Linux come Debian e quindi Ubuntu, a causa delle politiche di sicurezza e di stabilità del sistema, non distribuiscono nei propri repository \TeX\ Live con \texttt{tlmgr}. Per questa ed altre ragioni conviene installare \TeX\ Live direttamente dai mirror di \textsc{ctan}. Leggendo una buona guida come quella di Enrico Gregorio scaricabile all'indirizzo \url{profs.sci.univr.it/~gregorio/texlive-ubuntu.pdf} si possono evitare anche i problemi dovute alle dipendenze di alcuni programmi come Kile verso \TeX~Live dei repository della distribuzione Linux. Alcune spiegazioni aggiuntive per gli utenti del pinguino si trovano nei post \url{http://robitex.wordpress.com/2010/09/15/installare-tex-live-2010-in-ubuntu-lucid-lynx/} e \url{http://robitex.wordpress.com/2010/10/12/kile-e-tex-live-2010-su-sistemi-ubuntu/}.}. Si tratta di uno script in Perl solitamente utilizzato da riga di comando ma di cui è disponibile anche una versione grafica.
+
+Nei sistemi Mac~OS~X \texttt{tlmgr} è sostituito da un programma ad interfaccia grafica distribuito con Mac\TeX, la versione di \TeX\ Live per i sistemi Apple, chiamata \TeX{}~Live Utility.
+
+Ecco una selezione dei comandi più utili per la gestione della distribuzione con \TeX{} Live manager (lanciate il comando \verb=$ texdoc tlmgr= per consultare tutte le opzioni disponibili e le corrispondenti sintassi). Alcuni dei comandi potrebbero richiedere la modifica di directory di sistema e pertanto è necessario acquisire i diritti di amministratore:
+
+Aggiornamento di tutti i pacchetti installati:
+\begin{verbatim}
+$ tlmgr update --all
+\end{verbatim}
+
+Elencare i pacchetti non aggiornati:
+\begin{verbatim}
+$ tlmgr update --list
+\end{verbatim}
+
+Aggiornare l'utility \texttt{tlmgr} stessa:
+\begin{verbatim}
+$ tlmgr update --self
+\end{verbatim}
+
+Lanciare \texttt{tlmgr} in modalità grafica:
+\begin{verbatim}
+$ tlmgr gui
+\end{verbatim}
+
+Consultare lo stato di un pacchetto con alcune informazioni di base:
+\begin{verbatim}
+$ tlmgr show nome_pacchetto
+\end{verbatim}
+
+Impostare un repository \textsc{ctan} particolare (digitare il comando su un unica riga sostituendo a \texttt{<mirror>} il percorso di un server \textsc{ctan}):
+\begin{verbatim}
+$ tlmgr option repository <mirror>/tex/systems/texlive/tlnet/
+\end{verbatim}
+
+Per esempio un \emph{mirror} piuttosto veloce almeno per la mia connessione è quello di un'università olandese, ed allora il comando diventa (da digitare su una stessa riga):
+\begin{Verbatim}[fontsize=\small]
+$ tlmgr option repository
+  ftp://ftp.snt.utwente.nl/pub/software/tex/systems/texlive/tlnet/
+\end{Verbatim}
+
+
+

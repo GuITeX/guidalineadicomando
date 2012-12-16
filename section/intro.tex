@@ -1,0 +1,95 @@
+% !TEX encoding = UTF-8
+% !TEX program = pdflatex
+% !TEX root = ../guidaConsole.tex
+
+\chapter{La riga di comando}
+\label{chapConsole}
+
+Prima della comparsa delle interfacce grafiche --- ideate al Palo Alto Research Center in California ed implementate da Apple prima in Lisa e poi in Macintosh nel 1983 --- l'interazione con i programmi avveniva con una modalità testuale chiamata \emph{riga di comando}, ancora oggi disponibile sui moderni elaboratori come componente essenziale e metodo efficiente di elaborare dati.
+
+I componenti del sistema \TeX{} possono essere utilizzati per mezzo della sola interfaccia a riga di comando --- ed è per questo che gli utilizzatori potrebbero avvantaggiarsi se la conoscessero. Ciò non toglie che componenti indipendenti come gli \emph{shell editor}, possano costituire un'interfaccia grafica verso i programmi di composizione della famiglia \TeX{}. 
+
+\section{Il concetto di base}
+
+\begin{tcolorbox}[title=Definizione di \emph{Riga di comando}]
+La \emph{riga  di comando} è un ambiente testuale in cui si impartiscono istruzioni digitando nomi di programmi con eventuali argomenti
+\end{tcolorbox}
+
+L'ambiente testuale che consente all'utente di interagire  con il sistema è chiamato \emph{shell}. La shell accetta  i dati di ingresso sotto forma di \emph{comando}, gestisce l'esecuzione ad essi corrispondente e riceve i dati di uscita destinati all'utente. Nulla vieta che informazioni di ingresso o di uscita siano memorizzati in file su disco.
+
+La riga di comando ha una lunga storia ed è naturale che le siano stati attribuiti nomi diversi per definirla nell'ambito di un particolare sistema operativo --- \emph{linea di comando}, \emph{terminale}, \emph{console} sono fra questi --- tuttavia i concetti che la definiscono sono ancora quelli perfezionati da Dennis Ritchie, Ken Thompson, Brian Kernighan e da altri programmatori esperti dei laboratori Bell sul finire degli anni '60 con Unix.
+
+Tra le innovazioni del sistema operativo Unix, la shell rappresentava l'idea che piccoli e veloci programmi specializzati in compiti precisi, potessero essere concatenati in una \emph{pipeline} adottando l'output dell'elaborazione come input per il programma successivo. La filosofia degli strumenti tende a garantire lo sviluppo efficiente del software senza limitare la complessità dell'elaborazione.
+
+Oggi tra i sistemi desktop più diffusi, Mac OS X e Linux, sono basati sulla struttura di Unix, mentre Windows ha seguito uno sviluppo parallelo replicando ed ampliando l'ambiente di \textsc{ms-dos} con il ruolo di shell.
+
+
+
+\section{Primi comandi}
+
+Il formato delle istruzioni prevede in particolare la digitazione in un'unica riga del nome del programma, seguito da eventuali opzioni e da eventuali argomenti. L'esecuzione ha inizio premendo il tasto invio.
+\medskip
+
+\texttt{\$ \prog{nomeprogramma} \oarg{opzioni} \oarg{argomenti}}
+\medskip
+
+Solitamente le opzioni vengono distinte dai dati premettendo al loro nome uno o due trattini \texttt{-} oppure uno slash. Se per esempio si vuol conoscere la versione di un programma è sufficiente eseguirlo con l'opzione \textsf{-version}. Con \textsf{pdftex}, il principale programma di composizione del sistema \TeX{}, otteniamo:
+\begin{verbatim}
+$ pdftex -version
+pdfTeX 3.1415926-1.40.11-2.2 (TeX Live 2010)
+... eccetera
+\end{verbatim}
+
+Nel comando precedente non vi sono argomenti ma solamente un opzione che provoca la stampa a video di un breve testo contenente le indicazioni di versione del programma \textsf{pdftex} installato sul sistema. Altri programmi della riga di comando utilizzano invece altre chiavi per emettere il testo d'aiuto a dimostrazione che non esiste un unico standard rispettato da comandi o shell.
+
+Se consideriamo l'opzione \texttt{-help} oppure \texttt{-?} si richiederà la stampa sintetica della sintassi prevista con l'elenco delle opzioni disponibili e brevi testi esplicativi. Proviamo al terminale:
+\begin{verbatim}
+$ pdftex -help
+Usage: pdftex [OPTION]... [TEXNAME[.tex]] [COMMANDS]
+   or: pdftex [OPTION]... \FIRST-LINE
+   or: pdftex [OPTION]... &FMT ARGS
+... eccetera
+\end{verbatim}
+
+Il \texttt{\$} --- o \texttt{>} per i sistemi Windows --- è chiamato \emph{prompt} ed è il segno dopo il quale si digitano i comandi con il compito di separare informazioni utili dai comandi stessi. Nella guida faremo uso del \texttt{\$} riportandolo negli esempi come primo carattere a simboleggiare la shell.
+
+A volte i comandi possono essere interattivi ovvero, una volta avviati, possono richiedere ulteriori dati in funzione dell'andamento dell'esecuzione.
+
+\section{Avviare la riga di comando}\label{secAvvio}
+
+Come vedremo, le modalità con cui si opera con la shell non sono poi così diverse tra i vari sistemi operativi. Molti concetti sono comuni e spesso i comandi di base hanno addirittura lo stesso nome e già questo è uno spunto  di riflessione interessante. 
+
+Solitamente la shell si presenta come una normale finestra grafica --- modalità detta in emulazione di terminale --- al cui interno compare il cursore lampeggiante davanti al prompt in attesa di istruzioni.
+
+Nei prossimi paragrafi impareremo ad accedere alla shell in Windows, Mac~OS~X, e Linux.
+
+\subsection{La shell in Windows}
+
+In Windows la shell è chiamata \emph{Prompt dei comandi}. Vi si accede dalla barra dei comandi \menu{Start > Programmi > Accessori > Prompt dei comandi}.
+Per comodità è possibile creare un shortcut o scorciatoia --- un piccolo file puntatore ad un altro file --- sul Desktop o nella barra delle applicazioni, così che basta un click per avviarla.
+
+In Windows esiste una modalità particolare di avvio della shell che consiste nell'aprire il dialogo \texttt{Esegui...} dal menù Start e digitare il comando \texttt{cmd} prima di confermare su \keys{OK} o con il tasto \keys{\return}.
+
+\subsection{La shell in Mac OS X}
+
+In Mac la riga di comando è rappresentata dall'applicazione \textsf{Terminale}, situata nella cartella Utility all'interno della cartella Applicazioni.
+
+Potete anche trascinare l’icona Terminale dalla directory Utility di Applicazioni, alla \emph{Dock Bar}. Per avviare la shell fate click sull'icona appena creata.
+
+\subsection{I sistemi operativi Linux}
+
+In Linux la shell è di casa. Se il vostro Desktop Environment (DE) è Gnome utilizzerete \texttt{gnome-terminal} dal menù \menu{Applicazioni > Accessori > Terminale}. In KDE l'emulatore di terminale è il programma \texttt{Konsole}.
+
+Troverete molto comodo avviare il Terminale da tastiera con una combinazioni di tasti, per esempio \keys{\ctrl + \Altwin + T}, da impostare nelle scorciatoie del DE.
+
+In Linux esiste anche il concetto di \emph{console virtuale}, l'insieme di 7 sessioni utente parallele, 6 con interfaccia a caratteri ed una grafica (quella che utilizziamo normalmente). Si può passare da una all'altra premendo i tasti funzione da \keys{F1} a \keys{F6} con la combinazione \keys{\ctrl + \Altwin + F1-6}, per le console a caratteri ed il tasto funzione \keys{F7} nella combinazione \keys{\ctrl + \Altwin + F7}, per la sessione grafica in cui opera il Desktop Environment.
+
+Le 6 console testuali sono ambienti a riga di comando di accesso indipendente al sistema, in cui è necessario eseguire il log-in fornendo un account valido accreditato sul sistema. Potremo così avviare fino a 7 sessioni parallele indipendenti sullo stesso computer e con le stesse credenziali.
+
+
+
+
+
+
+
+

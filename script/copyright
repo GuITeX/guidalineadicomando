@@ -1,0 +1,20 @@
+#!/usr/bin/lua
+
+local function prt( s )
+   print("   "..s)
+end
+
+
+
+
+
+prt ""
+prt "(C) 2012 Roberto Giacomelli"
+prt "Pubblicato in Italia con licenza Creative Commons license 2.5"
+prt "Attribuzione, Non commerciale, Condividi allo stesso modo"
+prt ""
+prt "I marchi Windows, Mac OS X, e Linux sono di proprietà riservata"
+prt "dei rispettivi detentori"
+prt ""
+
+-- end of file
