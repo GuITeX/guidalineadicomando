@@ -135,82 +135,41 @@ perl -p -i -e 's/(\.\.\|\.)/\w+\.tex/$1\/main.tex/' chapter/*.tex
 \subsubsection{Ancora sulle righe magiche}
 \label{sssec:addheader}
 
-Supponiamo di aver scritto diverso tempo fa dei file \LaTeX, quando ancora non conoscevamo \TeX works. In quei file ovviamente non sono
-presenti le righe magiche che Texworks riesce ad
-interpretare. Oggi, a distanza di tempo, siamo interessati a quei
-file e vogliamo modificarli con \TeX works. Ci dotiamo quindi di un
-metodo per aggiungere, in testa ad ogni file, le righe che ci servono.
+Supponiamo di aver scritto diverso tempo fa dei sorgenti \LaTeX, quando ancora non conoscevamo TeX Works. In quei file ovviamente non sono
+presenti le righe magiche che TeX Works riesce ad
+interpretare impostando codifica e programma di composizione, ed oggi, a distanza di tempo, vorremmo aggiungerle a ciascuno di quei file \texttt{.tex}.
 
-Procediamo in questo modo. Creiamo, nella cartella di lavoro dove sono
-compresi tutti i file .tex, un file che
-contenga le righe magiche di cui abbiamo bisogno, per esempio
+Per questo inseriamo in una cartella i sorgenti ed un file che contenga le righe magiche di cui abbiamo bisogno, per esempio queste:
 \begin{Verbatim}
 % !TEX encoding = UTF-8
 % !TEX program = pdflatex
 \end{Verbatim}
-e salviamo questo file con il nome \filestyle{HEADER} (possiamo anche non assegnare nessuna dimensione). A questo punto aprimo la shell e scriviamo la riga\footnote{Per una questione di praticità in questo documento è stata separata in più righe.}
+e salviamo questo file con il nome \filestyle{header} (possiamo anche non assegnare nessuna estensione). A questo punto apriamo la shell e scriviamo la riga\footnote{Per una questione di praticità in questo documento il codice è stato spezzato su più righe.}
 \begin{Verbatim}
 for i in *.tex; do \
- cp HEADER HEADER_TEMP; \
- cat $i >> HEADER_TEMP; \
- mv HEADER_TEMP $i; \
+ cp header header_temp; \
+ cat $i >> header_temp; \
+ mv header_temp $i; \
 done
 \end{Verbatim}
-e vedremo come, premendo il tasto \keys{\return}, a tutti i file sarà aggiunto quanto scritto nel file \filestyle{HEADER}. 
+e vedremo come, premendo il tasto \keys{\return}, a tutti i file sarà stato aggiunto quanto scritto nel file \filestyle{header}. 
 
-Il codice è molto semplice: con \verb!cp HEADER HEADER_TEMP;! si crea una copia del file che contiene le righe magiche; con \verb!cat $i >> HEADER_TEMP;! uniamo il contenuto del file .tex che la variabile \verb!$i! sta scorrendo con il file \filestyle{HEADER\_TEMP}; infine con \verb!mv HEADER_TEMP $i;! rinomianimo \filestyle{HEADER\_TEMP} con il nome del file .tex a cui abbiamo aggiunto le righe (che sarà quindi sovrascritto).
+Il codice è molto semplice: con \verb!cp header header_temp;! si crea una copia del file che contiene le righe magiche; con \verb!cat $i >> header_temp;! uniamo il contenuto del file \texttt{.tex} che la variabile \verb!$i! sta scorrendo, con il file \filestyle{header\_temp}; infine con \verb!mv header_temp $i;! rinominiamo \filestyle{header\_temp} con il nome del file \texttt{.tex} a cui abbiamo aggiunto le righe sovrascrivendolo.
 
-Per affinamenti successivi si può sicuramente ottenere un codice più efficiente (questo forse non lo è, ma è sicuramente efficace, cioè raggiunge il suo scopo), da salvare in un file di estensione .sh che possa, per esempio, anche lavorare su file presenti in sotto-cartelle, oppure verificare che tali righe siano presenti o meno. 
+Per affinamenti successivi si può sicuramente ottenere un codice più efficiente (e questo forse non lo è, ma sicuramente raggiunge il suo scopo), da salvare in un file di estensione \texttt{.sh} che possa, per esempio, lavorare su file presenti in sotto-cartelle, oppure verificare che tali righe siano già presenti o meno. 
 
-Quanto scritto può essere fatto ovviamente su sistemi operativi Linux e Mac OS; per sistemi operati Windows tale procedura è possibile a patto di installare Cygwin o un'altro emulatore UNIX.
+Quanto scritto può essere fatto ovviamente su sistemi operativi Linux e Mac OS con la shell di sistema; per i sistemi operativi Windows tale procedura è possibile a patto di installare \href{http://www.cygwin.com/}{Cygwin} o un altro emulatore Unix.
 
 
 \endinput
 
+%argomenti ancora da scrivere
 \section{Creazione di cartelle ramificate}
 \section{Aprire il terminale da una cartella}
 \section{Redirezione dei dati}
 \section{Operare con i diritti di root}
 \section{Scripting}
 
-\endinput
-
-\begin{verbatim}
-$ rename 'y/A-Z/a-z/' image/*
-\end{verbatim}
-
-Su tutti i sistemi il comando per cambiare la directory di lavoro della shell è \texttt{cd} che sta per \textbf{c}hange \textbf{d}irectory:
-
-\begin{tcolorbox}
-\begin{verbatim}
-$ cd <path>
-\end{verbatim}
-\end{tcolorbox}
-
-La sintassi prevede di specificare come primo argomento il percorso della directory. Il comando dato senza argomenti, sui sistemi Unix riporta la directory di lavoro alla \texttt{home} dell'utente, su quelli Windows invece, stampa semplicemente la directory di lavoro attuale, per altro informazione già riportata nel prompt (in Unix la stampa della directory corrente si ottiene con il comando \texttt{pwd}, \textbf{p}rint \textbf{w}orking \textbf{d}irectory).
-
-Nella digitazione dei path è molto comodo avvalersi del \emph{completamento automatico}, che funziona premendo il tasto \keys{Tab} dopo aver digitato un numero sufficiente di caratteri da individuare univocamente una directory, così da non dover più digitarne il nome per intero.
-
-Provare ad impostare la directory di lavoro al valore di \verb=/usr/bin= in Linux e \verb=C:\Document and Settings= in Windows.
-
-Per risalire al nodo superiore del file system digitare poi il comando \verb=$ cd ..=
-
-\section{Elencare i file}
-
-Una delle necessità più frequenti dell'utente è quella di stampare a video l'elenco delle cartelle e dei file presenti in un nodo del file system. In Windows il comando per farlo è \texttt{dir}, mentre negli altri sistemi è \texttt{ls} (\textbf{l}i\textbf{s}t file). Apriamo una finestra di console e digitiamo il comando senza argomenti per mostrare il contenuto della directory di lavoro.
-
-\noindent\begin{tcolorbox}[width=(\linewidth-6pt)/2,before=,after=\hfill]
-Windows\tcblower
-\begin{verbatim}
-> dir
-\end{verbatim}
-\end{tcolorbox}
-\begin{tcolorbox}[width=(\linewidth-6pt)/2,before=,after=\hfill]
-Linux e Mac OS X\tcblower
-\begin{verbatim}
-$ ls
-\end{verbatim}
-\end{tcolorbox}
 
 
 
