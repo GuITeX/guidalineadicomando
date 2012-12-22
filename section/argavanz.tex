@@ -129,26 +129,49 @@ Ci proponiamo di modificare il nome del sorgente principale in tutti i file pres
 perl -p -i -e 's/(\.\.\|\.)/\w+\.tex/$1\/main.tex/' chapter/*.tex
 \end{Verbatim}
 
+% oi_begin_comment
+% Ho un dubbio sul livello di questo paragrafo; credo anche che sia necessario un approfondimento su CygWin
+% oi_end_comment
+\subsubsection{Ancora sulle righe magiche}
+\label{sssec:addheader}
+
+Supponiamo di aver scritto diverso tempo fa dei file \LaTeX, quando ancora non conoscevamo \TeX works. In quei file ovviamente non sono
+presenti le righe magiche che Texworks riesce ad
+interpretare. Oggi, a distanza di tempo, siamo interessati a quei
+file e vogliamo modificarli con \TeX works. Ci dotiamo quindi di un
+metodo per aggiungere, in testa ad ogni file, le righe che ci servono.
+
+Procediamo in questo modo. Creiamo, nella cartella di lavoro dove sono
+compresi tutti i file .tex, un file che
+contenga le righe magiche di cui abbiamo bisogno, per esempio
+\begin{Verbatim}
+% !TEX encoding = UTF-8
+% !TEX program = pdflatex
+\end{Verbatim}
+e salviamo questo file con il nome \filestyle{HEADER} (possiamo anche non assegnare nessuna dimensione). A questo punto aprimo la shell e scriviamo la riga\footnote{Per una questione di praticità in questo documento è stata separata in più righe.}
+\begin{Verbatim}
+for i in *.tex; do \
+ cp HEADER HEADER_TEMP; \
+ cat $i >> HEADER_TEMP; \
+ mv HEADER_TEMP $i; \
+done
+\end{Verbatim}
+e vedremo come, premendo il tasto \keys{\return}, a tutti i file sarà aggiunto quanto scritto nel file \filestyle{HEADER}. 
+
+Il codice è molto semplice: con \verb!cp HEADER HEADER_TEMP;! si crea una copia del file che contiene le righe magiche; con \verb!cat $i >> HEADER_TEMP;! uniamo il contenuto del file .tex che la variabile \verb!$i! sta scorrendo con il file \filestyle{HEADER\_TEMP}; infine con \verb!mv HEADER_TEMP $i;! rinomianimo \filestyle{HEADER\_TEMP} con il nome del file .tex a cui abbiamo aggiunto le righe (che sarà quindi sovrascritto).
+
+Per affinamenti successivi si può sicuramente ottenere un codice più efficiente (questo forse non lo è, ma è sicuramente efficace, cioè raggiunge il suo scopo), da salvare in un file di estensione .sh che possa, per esempio, anche lavorare su file presenti in sotto-cartelle, oppure verificare che tali righe siano presenti o meno. 
+
+Quanto scritto può essere fatto ovviamente su sistemi operativi Linux e Mac OS; per sistemi operati Windows tale procedura è possibile a patto di installare Cygwin o un'altro emulatore UNIX.
+
+
 \endinput
 
-
-
 \section{Creazione di cartelle ramificate}
-
 \section{Aprire il terminale da una cartella}
-
-
 \section{Redirezione dei dati}
-
-
 \section{Operare con i diritti di root}
-
 \section{Scripting}
-
-
-
-
-
 
 \endinput
 
