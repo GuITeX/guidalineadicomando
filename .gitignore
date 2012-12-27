@@ -1,3 +1,6 @@
+# this is the .gitignore file
+# :-)
+# common auxiliary files
 *.log
 *.aux
 *.synctex.gz
@@ -5,4 +8,20 @@
 *.toc
 *.gz
 *.zip
+# abbiamo deciso di non includere nel repo
+# il file pdf compilato
 guidaConsole.pdf
+# ed anche di escludere i file di classe
+# scaricabili direttamente dal repo apposito
+# sul progetto GuITeX
+# La soluzione consiste nel copiare in locale
+# i file relativi alla classe (ed in questo caso
+# servono le righe seguenti) oppure di installare
+# i file nell'albero locale o personale del proprio
+# sistema
+guidatematica.cls
+guidatematica.bib
+guidatematica.bst
+LogoGuITtondo.pdf
+LogoGuITlineare.pdf
+#

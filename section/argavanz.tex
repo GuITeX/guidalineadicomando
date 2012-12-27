@@ -44,7 +44,7 @@ Si tratta del problema della sostituzione di occorrenze in un testo che possiamo
 $ perl -p -i -e 's/<RegExpr>/<nuovo>/modificatori' <files>
 \end{verbatim}
 
-Esaminiamo le tre opzioni iniziali: \texttt{-e} indica che dovrà essere eseguito il codice specificato di seguito (opzione \emph{execute}), \texttt{-i} indica che saranno modificati direttamente i file originali (opzione \emph{inline}) e \texttt{-p} indica che dovranno essere esaminate tutte le righe di testo nei file.
+Esaminiamo le tre opzioni iniziali: \texttt{-p} indica che dovranno essere esaminate tutte le righe di testo nei file, \texttt{-i} indica che saranno modificati direttamente i file originali (opzione \emph{inline}) e \texttt{-e} indica che dovrà essere eseguito il codice specificato di seguito (opzione \emph{execute}).
 
 Abbiamo poi l'argomento che specifica il pattern di sostituzione con campi separati da uno slash, nel formato già incontrato per il comando \texttt{rename}.
 
@@ -53,7 +53,7 @@ Nell'eseguire questi comandi si deve prestare attenzione verificando la corretta
 
 \subsubsection{Sostituire una parola}
 
-Il nostro revisore ci ha segnalato gentilmente che nella tesi anziché scrivere ``perché'' abbiamo invece utilizzato l'accento sbagliato scrivendo ``perchè''. Dopo aver compreso l'errore eseguiamo una copia di sicurezza dei sorgenti e lanciamo il comando seguente una volta impostata la working directory a quella che contiene la cartella \texttt{chapter} con i file da correggere:
+Il nostro revisore ci ha segnalato gentilmente che nella tesi anziché scrivere ``perché'' abbiamo invece utilizzato l'accento sbagliato scrivendo ``perchè''. Dopo aver compreso l'errore\footnote{Leggendo per esempio l'articolo ``Norme tipografiche per l’italiano in \LaTeX'' di Gustavo Cevolani disponibile all'indirizzo web sul \href{http://www.guitex.org/home/images/ArsTeXnica/AT001/norme\%20tipografiche\%20per\%20litaliano\%20in\%20latex.pdf}{sito del \GuIT*}.} eseguiamo una copia di sicurezza dei sorgenti e lanciamo il comando seguente una volta impostata la working directory a quella che contiene la cartella \texttt{chapter} con i file da correggere:
 \begin{verbatim}
 $ perl -p -i -e 's/perchè/perché/g' chapter/*.tex
 \end{verbatim}
