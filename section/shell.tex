@@ -1,71 +1,138 @@
 % !TEX encoding = UTF-8
 % !TEX program = pdflatex
-% !TEX root = ../guidaConsole.tex
+% !TEX root = ../guidaconsole.tex
 
 \chapter{La shell}
 \label{chapShell}
 
-Prima di passare alla parte operativa, esamineremo rapidamente alcune particolarità della shell in relazione ai meccanismi di individuazione e ricerca dei file, premettendo i concetti generali del file system.
+Prima di passare alla parte operativa, esamineremo rapidamente alcune
+particolarità della shell in relazione ai meccanismi di individuazione e ricerca
+dei file, premettendo i concetti generali del file system.
 
-I file sono organizzati in una struttura ad \emph{albero}. Un nodo dell'albero è chiamato \emph{directory} o \emph{cartella} e può contenere sia file sia ulteriori nodi. Il nodo che contiene tutta la struttura del file system è chiamato \emph{radice}.
+I file sono organizzati in una struttura ad \emph{albero}. Un nodo dell'albero è
+chiamato \emph{directory} o \emph{cartella} e può contenere sia file sia
+ulteriori nodi. Il nodo che contiene tutta la struttura del file system è
+chiamato \emph{radice}.
 
-Il \emph{percorso} --- univoca individuazione di un file --- è la sequenza dei nomi delle directory a cominciare dalla radice fino ad arrivare al nome del file. Nella sequenza i nomi devono essere riconoscibili e ciò obbliga a scegliere un carattere speciale con il significato di separatore, che di conseguenza non potrà essere utilizzato nei nomi stessi.
+Il \emph{percorso} --- univoca individuazione di un file --- è la sequenza dei
+nomi delle directory a cominciare dalla radice fino ad arrivare al nome del
+file. Nella sequenza i nomi devono essere riconoscibili e ciò obbliga a
+scegliere un carattere speciale con il significato di separatore, che di
+conseguenza non potrà essere utilizzato nei nomi stessi.
 
-Nei sistemi Unix il separatore è il carattere \emph{slash} (\texttt{/}) che è anche il nome della directory radice, mentre in quelli Windows tale ruolo di separatore è assegnato al carattere \emph{backslash} (\verb=\=).
+Nei sistemi Unix il separatore è il carattere \emph{slash} (\texttt{/}) che è
+anche il nome della directory radice, mentre in quelli Windows tale ruolo di
+separatore è assegnato al carattere \emph{backslash} (\verb=\=).
 
 \section{La directory di lavoro}
 
-Agli argomenti dei comandi di shell, spesso è necessario assegnare file e l'unico modo per farlo è digitarne il percorso completo, dalla radice alla directory più profonda dell'albero del file system. Ciò è scomodo anche se si utilizza il completamento automatico della shell attivato dal tasto \keys{Tab}.
+Agli argomenti dei comandi di shell, spesso è necessario assegnare file
+l'unico modo per farlo è digitarne il percorso completo, dalla radice alla
+directory più profonda dell'albero del file system. Ciò è scomodo anche se si
+utilizza il completamento automatico della shell attivato dal tasto \keys{Tab}.
 
-Se volessimo ridurre il percorso del file al solo nome, una directory dovrebbe essere implicitamente aggiunta dal sistema. Effettivamente, tale nodo esiste e viene chiamato \emph{directory di lavoro}. Per renderla nota all'utente, il prompt della riga di comando riporta in forma estesa o abbreviata la directory di lavoro.
+Se volessimo ridurre il percorso del file al solo nome, una directory dovrebbe
+essere implicitamente aggiunta dal sistema. Effettivamente, tale nodo esiste e
+viene chiamato \emph{directory di lavoro}. Per renderla nota all'utente, il
+prompt della riga di comando riporta in forma estesa o abbreviata la directory
+di lavoro.
 
-Una nuova directory di lavoro può essere impostata dando il percorso del nuovo nodo come argomento del comando \texttt{cd} \textbf{c}hange \textbf{d}irectory.
+Una nuova directory di lavoro può essere impostata dando il percorso del nuovo
+nodo come argomento del comando \texttt{cd} \textbf{c}hange \textbf{d}irectory.
 
-Se per esempio si desidera operare su file contenuti in una particolare directory conviene impostarla come directory di lavoro così da individuare i file semplicemente con il nome e non con il percorso completo.
+Se per esempio si desidera operare su file contenuti in una particolare
+directory conviene impostarla come directory di lavoro così da individuare i
+file semplicemente con il nome e non con il percorso completo.
 
-Ulteriori abbreviazioni facilitano la digitazione dei percorsi di file e directory: il carattere punto (\texttt{.}) rappresenta la directory di lavoro, l'insieme di due punti invece (\texttt{..}) rappresenta la directory immediatamente superiore a quella di lavoro, così che per salire di un livello, ovvero impostare la directory di lavoro al livello superiore di quella attuale, è sufficiente dare il comando \texttt{\$ cd ..} (il prompt verrà immediatamente aggiornato di conseguenza).
+Ulteriori abbreviazioni facilitano la digitazione dei percorsi di file e
+directory: il carattere punto (\texttt{.}) rappresenta la directory di lavoro,
+l'insieme di due punti invece (\texttt{..}) rappresenta la directory
+immediatamente superiore a quella di lavoro, così che per salire di un livello,
+ovvero impostare la directory di lavoro al livello superiore di quella attuale,
+è sufficiente dare il comando \texttt{\$ cd ..} (il prompt verrà immediatamente
+aggiornato di conseguenza).
 
-Nei sistemi Unix inoltre il carattere tilde \verb=~= rappresenta la directory \texttt{home} dell'utente in cui sono salvati tutti i file e le impostazioni personali e, come già accennato, il carattere \verb=\= rappresenta la directory radice. Nei sistemi Windows la radice è \texttt{X:\textbackslash} dove \texttt{X} è la lettera indicatrice del disco o della periferica di memoria di massa intesa come partizione logica.
+Nei sistemi Unix inoltre il carattere tilde \verb=~= rappresenta la directory
+\texttt{home} dell'utente in cui sono salvati tutti i file e le impostazioni
+personali e, come già accennato, il carattere \verb=\= rappresenta la directory
+radice. Nei sistemi Windows la radice è \texttt{X:\textbackslash} dove
+\texttt{X} è la lettera indicatrice del disco o della periferica di memoria di
+massa intesa come partizione logica.
 
-A differenza dei sistemi Unix dove l'albero del file system ha coerentemente una sola radice anche se vi sono più partizioni o dispositivi di memoria, nei sistemi Windows esiste un nodo radice per ogni partizione o disco di memoria, tanto che il comando \texttt{cd} non modifica la cartella di lavoro se ci si vuole spostare in un altro ramo a meno che non venga specificata l'opzione \texttt{/d}.
+A differenza dei sistemi Unix dove l'albero del file system ha coerentemente una
+sola radice anche se vi sono più partizioni o dispositivi di memoria, nei
+sistemi Windows esiste un nodo radice per ogni partizione o disco di memoria,
+tanto che il comando \texttt{cd} non modifica la cartella di lavoro se ci si
+vuole spostare in un altro ramo a meno che non venga specificata l'opzione
+\texttt{/d}.
 
-Se per esempio la directory di lavoro è \verb=C:\Programmi= per modificarla al nuovo valore \verb=D:\Archivio\Documenti\Tesi= possiamo dare il comando:
+Se per esempio la directory di lavoro è \verb=C:\Programmi= per modificarla al
+nuovo valore \verb=D:\Archivio\Documenti\Tesi= possiamo dare il comando:
 \begin{verbatim}
 C:\Programmi> cd /d D:\Archivio\Documenti\Tesi
 \end{verbatim}
-oppure possiamo procedere in due passi prima cambiando il ramo del file system a \verb=D:= e poi dando il comando \texttt{cd} semplice:
+oppure possiamo procedere in due passi prima cambiando il ramo del file system a
+\verb=D:= e poi dando il comando \texttt{cd} semplice:
 \begin{verbatim}
 C:\Programmi> D:
 D:\> cd Archivio\Documenti\Tesi
 \end{verbatim}
 
-
-
-
-
 \section{Variabili d'ambiente}
 
-Le variabili d'ambiente memorizzano informazioni utili all'esecuzione dei comandi di shell ed in particolare percorsi. Lo scopo è quello di rendere un programma indipendente dalla reale posizione dei file su disco.
+Le variabili d'ambiente memorizzano informazioni utili all'esecuzione dei
+comandi di shell ed in particolare percorsi. Lo scopo è quello di rendere un
+programma indipendente dalla reale posizione dei file su disco.
 
-Il comando per stampare il contenuto di una variabile d'ambiente è \texttt{echo}. Sui sistemi tipo Unix la variabile è preceduta dal segno \texttt{\$}, sui sistemi Windows il nome della variabile deve essere racchiuso tra \texttt{\%}.
+Il comando per stampare il contenuto di una variabile d'ambiente è
+\texttt{echo}. Sui sistemi tipo Unix la variabile è preceduta dal segno
+\texttt{\$}, sui sistemi Windows il nome della variabile deve essere racchiuso
+tra \texttt{\%}.
 
 \section{Il path di sistema}
 
-Poiché un programma è fisicamente un file memorizzato su disco, per eseguirlo è necessario che la shell sia in grado di conoscerne il percorso completo nell'albero del file system.
+Poiché un programma è fisicamente un file memorizzato su disco, per eseguirlo è
+necessario che la shell sia in grado di conoscerne il percorso completo
+nell'albero del file system.
 
-Come per la working directory anche per i programmi esiste un modo semplice di abbreviarne il percorso alla riga di comando ma questa volta, per non obbligare a memorizzare i programmi tutti in un'unica directory, la soluzione assume la forma di un elenco di directory chiamato \emph{search path} e memorizzato nella variabile d'ambiente \texttt{PATH}. In definitiva, per eseguire un programma da riga di comando occorre o digitare il percorso completo del file eseguibile oppure occorre che la directory che lo contiene sia compresa nel \texttt{PATH}.
+Come per la working directory anche per i programmi esiste un modo semplice di
+abbreviarne il percorso alla riga di comando ma questa volta, per non obbligare
+a memorizzare i programmi tutti in un'unica directory, la soluzione assume la
+forma di un elenco di directory chiamato \emph{search path} e memorizzato nella
+variabile d'ambiente \texttt{PATH}. In definitiva, per eseguire un programma da
+riga di comando occorre o digitare il percorso completo del file eseguibile
+oppure occorre che la directory che lo contiene sia compresa nel \texttt{PATH}.
 
-Il meccanismo di ricerca dei comandi è il seguente: digitando un nome alla riga di comando, la shell per prima cosa cerca il file corrispondente nel caso fosse un percorso di un file valido e, se non lo trova, lo cerca in tutti i percorsi memorizzati in \texttt{PATH} finché o la ricerca ha successo o viene emesso un messaggio di errore.
+Il meccanismo di ricerca dei comandi è il seguente: digitando un nome alla riga
+di comando, la shell per prima cosa cerca il file corrispondente nel caso fosse
+un percorso di un file valido e, se non lo trova, lo cerca in tutti i percorsi
+memorizzati in \texttt{PATH} finché o la ricerca ha successo o viene emesso un
+messaggio di errore.
 
-Nei sistemi Unix esiste il comando \texttt{which} che fa esclusivamente questo: ricercare l'eseguibile associato ad un nome. Se la ricerca ha successo viene stampato il percorso completo del programma: per esempio il percorso del programma \texttt{pdftex} utilizzato per comporre questo documento è\footnote{Interessante notare che per eseguire il comando \texttt{which} la shell effettua la ricerca tra le risorse del \texttt{PATH}, infatti si potrebbe dare il comando \texttt{\$ which which}...}:
+Nei sistemi Unix esiste il comando \texttt{which} che fa esclusivamente questo:
+ricercare l'eseguibile associato ad un nome. Se la ricerca ha successo viene
+stampato il percorso completo del programma: per esempio il percorso del
+programma \texttt{pdftex} utilizzato per comporre questo documento
+è\footnote{Interessante notare che per eseguire il comando \texttt{which} la
+shell effettua la ricerca tra le risorse del \texttt{PATH}, infatti si potrebbe
+dare il comando \texttt{\$ which which}...}:
 \begin{verbatim}
 $ which pdftex
 /usr/local/texlive/2011/bin/i386-linux/pdftex
 \end{verbatim}
 
-Esiste anche un terzo luogo dove la shell ricerca i comandi ma questo è vero solo per il sistema operativo Windows: la directory di lavoro. Nei sistemi Unix se la directory di lavoro corrisponde a quella del programma che si desidera eseguire non è sufficiente digitare il nome del file ma occorre dare alla shell l'informazione del percorso completo che tuttavia è immediato rappresentare con i caratteri punto e slash \texttt{./}, seguiti dal nome semplice dell'eseguibile.
+Esiste anche un terzo luogo dove la shell ricerca i comandi ma questo è vero
+solo per il sistema operativo Windows: la directory di lavoro. Nei sistemi Unix
+se la directory di lavoro corrisponde a quella del programma che si desidera
+eseguire non è sufficiente digitare il nome del file ma occorre dare alla shell
+l'informazione del percorso completo che tuttavia è immediato rappresentare con
+i caratteri punto e slash \texttt{./}, seguiti dal nome semplice
+dell'eseguibile.
 
-Più in generale, quando avviamo la shell vengono creati numerosi parametri che caratterizzano la sessione di lavoro. Tra questi ci sono il \texttt{PATH} di sistema e la directory di lavoro\footnote{Provate a dare il comando \texttt{env} nel terminale di un sistema Unix\dots}.
+Più in generale, quando avviamo la shell vengono creati numerosi parametri che
+caratterizzano la sessione di lavoro. Tra questi ci sono il \texttt{PATH} di
+sistema e la directory di lavoro\footnote{Provate a dare il comando \texttt{env}
+nel terminale di un sistema Unix\dots}.
 
 Per conoscere il \texttt{PATH} è sufficiente digitare in console il comando:
 \begin{verbatim}
@@ -73,26 +140,64 @@ per Unix like OS   $ echo $PATH
 per Windows OS     > echo %PATH%
 \end{verbatim}
 
-Come modificare il \texttt{PATH} dipende fortemente dal sistema operativo e di solito, se l'operazione è necessaria, è effettuata dal programma d'installazione. Nelle prossime sezioni esamineremo in dettaglio la procedura manuale.
+Come modificare il \texttt{PATH} dipende fortemente dal sistema operativo e di
+solito, se l'operazione è necessaria, è effettuata dal programma
+d'installazione. Nelle prossime sezioni esamineremo in dettaglio la procedura
+manuale.
 
 \subsection{Modificare il \texttt{PATH} in Windows.}
 
-Possono essere impostati il \texttt{PATH} del singolo utente e quello di sistema. Per motivi di sicurezza è sempre consigliabile limitare le modifiche al solo \texttt{PATH} utente lasciando inalterato quello di sistema. Accedendo al sistema con altre credenziali dovremo ripetere la modifica al \texttt{PATH} se si vuole rispettare questa buona regola\footnote{D'altra parte, l'installazione di \TeX{} Live di solito viene effettuata con i diritti di amministratore e per tutti gli utenti così che il sistema \TeX{} risulta disponibile per qualsiasi utente.}.
+Possono essere impostati il \texttt{PATH} del singolo utente e quello di
+sistema. Per motivi di sicurezza è sempre consigliabile limitare le modifiche al
+solo \texttt{PATH} utente lasciando inalterato quello di sistema. Accedendo al
+sistema con altre credenziali dovremo ripetere la modifica al \texttt{PATH} se
+si vuole rispettare questa buona regola\footnote{D'altra parte, l'installazione
+di \TeX{} Live di solito viene effettuata con i diritti di amministratore e per
+tutti gli utenti così che il sistema \TeX{} risulta disponibile per qualsiasi
+utente.}.
 
-In Windows XP occorre aprire il dialogo di proprietà del sistema con la sequenza di azioni \menu{Start > Pannello di controllo > Sistema > Avanzate}, premere il pulsante \keys{Variabili di ambiente...}, selezionare \texttt{PATH} nell'elenco delle variabili utente e modificare la lista premendo su \keys{Modifica...} ed aggiungendo il percorso desiderato facendo attenzione a mantenere il carattere di separazione \texttt{;} tra un percorso e l'altro. Se nell'elenco non compare la variabile \texttt{PATH}, createla impostandone il valore con il percorso alla directory voluta.
+In Windows XP occorre aprire il dialogo di proprietà del sistema con la sequenza
+di azioni \menu{Start > Pannello di controllo > Sistema > Avanzate}, premere il
+pulsante \keys{Variabili di ambiente...}, selezionare \texttt{PATH} nell'elenco
+delle variabili utente e modificare la lista premendo su \keys{Modifica...} ed
+aggiungendo il percorso desiderato facendo attenzione a mantenere il carattere
+di separazione \texttt{;} tra un percorso e l'altro. Se nell'elenco non compare
+la variabile \texttt{PATH}, createla impostandone il valore con il percorso alla
+directory voluta.
 
-In Windows Vista/7 con il mouse fate un clic destro sull'icona Computer sul Desktop e attivate il dialogo \menu{Proprietà} dal menu contestuale, poi dal collegamento presente sulla sinistra della finestra \menu{Impostazioni di sistema avanzate} raggiungete la scheda \menu{Avanzate}, scegliete il pulsante \keys{Variabili di ambiente} e procedete alla modifica del contenuto della variabile \texttt{PATH} selezionandola dall'elenco inferiore.
+In Windows Vista/7 con il mouse fate un clic destro sull'icona Computer sul
+Desktop e attivate il dialogo \menu{Proprietà} dal menu contestuale, poi dal
+collegamento presente sulla sinistra della finestra \menu{Impostazioni di
+sistema avanzate} raggiungete la scheda \menu{Avanzate}, scegliete il pulsante
+\keys{Variabili di ambiente} e procedete alla modifica del contenuto della
+variabile \texttt{PATH} selezionandola dall'elenco inferiore.
 
-Altro metodo per Windows Vista/7 consiste nel selezionare Computer dal menu \menu{Start}, farci sopra un click destro del mouse e dal menù contestuale scegliere la voce \keys{Proprietà} poi \menu{Impostazioni di sistema avanzate > scheda Avanzate > Variabili di ambiente}. Il \texttt{PATH} compare tra le variabili di sistema, lo si seleziona così da modificarlo con l'uso dei pulsanti inferiori del dialogo, utilizzando correttamente il carattere di separazione \texttt{;} tra i percorsi.
+Altro metodo per Windows Vista/7 consiste nel selezionare Computer dal menu
+\menu{Start}, farci sopra un click destro del mouse e dal menù contestuale
+scegliere la voce \keys{Proprietà} poi \menu{Impostazioni di sistema avanzate >
+scheda Avanzate > Variabili di ambiente}. Il \texttt{PATH} compare tra le
+variabili di sistema, lo si seleziona così da modificarlo con l'uso dei pulsanti
+inferiori del dialogo, utilizzando correttamente il carattere di separazione
+\texttt{;} tra i percorsi.
 
 \subsection{Modificare il \texttt{PATH} in Linux.}
 
-In Linux la via più semplice ed efficace per aggiungere una directory alla variabile \texttt{PATH} è quella di utilizzare il comando \texttt{export}:
+In Linux la via più semplice ed efficace per aggiungere una directory alla
+variabile \texttt{PATH} è quella di utilizzare il comando \texttt{export}:
 \begin{verbatim}
 $ export PATH=/usr/local/texlive/2011/bin/i386-linux:${PATH}
 \end{verbatim}
 
-Il comando precedente sostituisce il \texttt{PATH} attuale concatenandolo con il percorso della directory contenente i binari di \TeX{} Live (è solo un esempio, \TeX{} Live potrebbe essere installata in altra posizione od il percorso da inserire nella variabile potrebbe essere un altro). Il nuovo \texttt{PATH} vale solo per la sessione corrente della shell, e per rendere la modifica permanente è sufficiente inserire l'istruzione in un file chiamato \texttt{.profile} nella \texttt{home} utente, che viene letto nel momento in cui si esegue l'accesso al sistema (oppure ogni volta che si lancia il comando \texttt{source}). Possiamo editare il file con un editor oppure più rapidamente provvedere con la riga di comando (digitare il comando tutto in un'unica riga):
+Il comando precedente sostituisce il \texttt{PATH} attuale concatenandolo con il
+percorso della directory contenente i binari di \TeX{} Live (è solo un esempio,
+\TeX{} Live potrebbe essere installata in altra posizione od il percorso da
+inserire nella variabile potrebbe essere un altro). Il nuovo \texttt{PATH} vale
+solo per la sessione corrente della shell, e per rendere la modifica permanente
+è sufficiente inserire l'istruzione in un file chiamato \texttt{.profile} nella
+\texttt{home} utente, che viene letto nel momento in cui si esegue l'accesso al
+sistema (oppure ogni volta che si lancia il comando \texttt{source}). Possiamo
+editare il file con un editor oppure più rapidamente provvedere con la riga di
+comando (digitare il comando tutto in un'unica riga):
 \begin{verbatim}
 $ echo 'export PATH=/usr/local/texlive/2011/bin/i386-linux:
                      ${PATH}' >> ~.profile
@@ -101,7 +206,11 @@ $ echo 'export PATH=/usr/local/texlive/2011/bin/i386-linux:
 
 \subsection{Non modificare il \texttt{PATH} in Mac OS X.}
 
-Nei sistema operativo di Apple non è prevista la possibilità di modificare le variabili d'ambiente o le cartelle di sistema anche se ci si può riuscire. Ciò significa che le impostazioni devono essere correttamente eseguite dai programmi d'installazione e non dall'utente che deve sperare che non sia mai necessario compiere tali modifiche manualmente.
+Nei sistema operativo di Apple non è prevista la possibilità di modificare le
+variabili d'ambiente o le cartelle di sistema anche se ci si può riuscire. Ciò
+significa che le impostazioni devono essere correttamente eseguite dai programmi
+d'installazione e non dall'utente che deve sperare che non sia mai necessario
+compiere tali modifiche manualmente.
 
 
 

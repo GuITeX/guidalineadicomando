@@ -1,64 +1,136 @@
 % !TEX encoding = UTF-8
 % !TEX program = pdflatex
-% !TEX root = ../guidaConsole.tex
+% !TEX root = ../guidaconsole.tex
 
 \chapter{Argomenti avanzati}
 \label{chapAvanz}
 
-In questo capitolo presenterò alcune procedure avanzate che sfruttano la riga di comando per compiere operazioni altrimenti noiose, ripetitive o troppo lunghe da svolgere con altri strumenti. Si tratta di una collezione di casi pratici risolti con l'uso avanzato della riga di comando che si dimostra essere un sistema molto potente.
+In questo capitolo presenterò alcune procedure avanzate che sfruttano la riga di
+comando per compiere operazioni altrimenti noiose, ripetitive o troppo lunghe da
+svolgere con altri strumenti. Si tratta di una collezione di casi pratici
+risolti con l'uso avanzato della riga di comando che si dimostra essere un
+sistema molto potente.
 
 \section{Espressioni regolari}
 
-Di solito le chiavi delle \emph{espressioni regolari} sono piuttosto indecifrabili\dots{} devono infatti rispondere a formati e caratteri di controllo poco amichevoli ma hanno il vantaggio di non richiedere programmazione.
+Di solito le chiavi delle \emph{espressioni regolari} sono piuttosto
+indecifrabili\dots{} devono infatti rispondere a formati e caratteri di
+controllo poco amichevoli ma hanno il vantaggio di non richiedere
+programmazione.
 
-Negli esempi, useremo il formato RE\footnote{RE è l'acronimo di \emph{regular expression}.} previsto dal linguaggio Perl, poiché il compilatore \texttt{perl} è disponibile anche per Windows.
+Negli esempi, useremo il formato RE\footnote{RE è l'acronimo di \emph{regular
+expression}.} previsto dal linguaggio Perl, poiché il compilatore \texttt{perl}
+è disponibile anche per Windows.
 
-Per disporre di Perl, linguaggio nato appositamente anche per manipolare file di testo, gli utenti Windows possono o eseguire una installazione dal sito \url{www.perl.org} oppure, se dispongono di \TeX{} Live, possono tentare in via sperimentale di utilizzare il compilatore \texttt{perl} minimale già compreso nella distribuzione inserendo nel \texttt{PATH} utente il percorso \texttt{\$tlhome\textbackslash\$year\textbackslash tlpkg\textbackslash tlperl\textbackslash bin} dove \texttt{\$tlhome} va sostituito con la cartella contenente \TeX{} Live, solitamente \texttt{C:\textbackslash texlive} ed \texttt{\$year} va sostituito con il numero di versione che corrisponde all'anno di uscita.
+Per disporre di Perl, linguaggio nato appositamente anche per manipolare file di
+testo, gli utenti Windows possono o eseguire una installazione dal sito
+\url{www.perl.org} oppure, se dispongono di \TeX{} Live, possono tentare in via
+sperimentale di utilizzare il compilatore \texttt{perl} minimale già compreso
+nella distribuzione inserendo nel \texttt{PATH} utente il percorso
+\texttt{\$tlhome\textbackslash\$year\textbackslash tlpkg\textbackslash
+tlperl\textbackslash bin} dove \texttt{\$tlhome} va sostituito con la cartella
+contenente \TeX{} Live, solitamente \texttt{C:\textbackslash texlive} ed
+\texttt{\$year} va sostituito con il numero di versione che corrisponde all'anno
+di uscita.
 
-La chiave RE per sostituire un testo con un altro è '\verb=s/<old>/<new>/=' composta dal carattere \texttt{s} che sta per \emph{singola linea} ed il carattere slash \texttt{/} che fa da separatore. In coda alla chiave possono essere aggiunti \emph{modificatori} per esempio \texttt{i} che significa che la ricerca dell'occorrenza non deve tener conto di maiuscolo/minuscolo (\emph{ignore}), e \texttt{g} che indica che devono essere trovate tutte le occorrenze nella riga (\emph{global}) e non solo la prima. Per maggiori approfondimenti visitare la pagina web \href{http://perldoc.perl.org/perlrequick.html}{Perl RE Quick Guide} della documentazione Perl.
+La chiave RE per sostituire un testo con un altro è '\verb=s/<old>/<new>/='
+composta dal carattere \texttt{s} che sta per \emph{singola linea} ed il
+carattere slash \texttt{/} che fa da separatore. In coda alla chiave possono
+essere aggiunti \emph{modificatori} per esempio \texttt{i} che significa che la
+ricerca dell'occorrenza non deve tener conto di maiuscolo/minuscolo
+(\emph{ignore}), e \texttt{g} che indica che devono essere trovate tutte le
+occorrenze nella riga (\emph{global}) e non solo la prima. Per maggiori
+approfondimenti visitare la pagina web
+\href{http://perldoc.perl.org/perlrequick.html}{Perl RE Quick Guide} della
+documentazione Perl.
 
 
 \subsection{Rinominare file}
 
-Diversamente dall'implementazione in Windows, in Linux il comando \texttt{rename} accetta una chiave nel formato \href{http://perldoc.perl.org/perlrequick.html}{Perl Regular Expression}, rendendolo molto flessibile e potente. In Windows rimane la possibilità di utilizzare un comando scritto in Perl che si comporti come il \texttt{rename} di Linux anche se questa soluzione richiede un po' di lavoro in più.
+Diversamente dall'implementazione in Windows, in Linux il comando
+\texttt{rename} accetta una chiave nel formato
+\href{http://perldoc.perl.org/perlrequick.html}{Perl Regular Expression},
+rendendolo molto flessibile e potente. In Windows rimane la possibilità di
+utilizzare un comando scritto in Perl che si comporti come il \texttt{rename} di
+Linux anche se questa soluzione richiede un po' di lavoro in più.
 
-Ammettiamo che in una sotto cartella \texttt{image} i nomi delle immagini contengano degli spazi. Questo non permette il regolare funzionamento delle macro \LaTeX{} per l'inclusione dei file. Con un unico comando decidiamo di sostituire tutti gli spazi con il carattere trattino \texttt{-}. Formiamo la chiave RE che inizia con \texttt{s} con il carattere da sostituire (lo spazio), il nuovo carattere (il trattino \texttt{-}), ed aggiungiamo il modificatore \texttt{g} (global) per sostituire \emph{tutte} le occorrenze:
+Ammettiamo che in una sotto cartella \texttt{image} i nomi delle immagini
+contengano degli spazi. Questo non permette il regolare funzionamento delle
+macro \LaTeX{} per l'inclusione dei file. Con un unico comando decidiamo di
+sostituire tutti gli spazi con il carattere trattino \texttt{-}. Formiamo la
+chiave RE che inizia con \texttt{s} con il carattere da sostituire (lo spazio),
+il nuovo carattere (il trattino \texttt{-}), ed aggiungiamo il modificatore
+\texttt{g} (global) per sostituire \emph{tutte} le occorrenze:
 \begin{verbatim}
 $ rename 's/ /-/g' image/*
 \end{verbatim}
 
-Ancora per evitare problemi con le immagini in un progetto \LaTeX, vogliamo rendere minuscole le lettere che compongono i nomi dei file compreso quelli dell'estensione. Il modello RE indicherà stavolta una trasliterazione specificando non un unico carattere ma il set di caratteri \texttt{A-Z} e quelli corrispondenti da sostituire con il set \texttt{a-z}. La manipolazione in corrispondenza di posizione richiede le lettere iniziali \texttt{tr}, \textbf{tr}ansliterate (che possono essere scritte con il sinonimo \texttt{y}):
+Ancora per evitare problemi con le immagini in un progetto \LaTeX, vogliamo
+rendere minuscole le lettere che compongono i nomi dei file compreso quelli
+dell'estensione. Il modello RE indicherà stavolta una trasliterazione
+specificando non un unico carattere ma il set di caratteri \texttt{A-Z} e quelli
+corrispondenti da sostituire con il set \texttt{a-z}. La manipolazione in
+corrispondenza di posizione richiede le lettere iniziali \texttt{tr},
+\textbf{tr}ansliterate (che possono essere scritte con il sinonimo \texttt{y}):
 \begin{verbatim}
 $ rename 'y/A-Z/a-z/' image/*
 \end{verbatim}
 
-La trasformazione dei caratteri spazio in trattini del primo esempio, può essere ottenuta anche con il modello RE di trasliterazione \texttt{'y/ /-/'}.
+La trasformazione dei caratteri spazio in trattini del primo esempio, può essere
+ottenuta anche con il modello RE di trasliterazione \texttt{'y/ /-/'}.
 
-Potremo voler rinominare i file premettendo ai nomi un prefisso, per esempio \texttt{123}, con il modello \verb='s/^/123/'= oppure, viceversa, potremo voler eliminarlo con il modello \verb='s/^\w{3}//'=, oppure ancora eliminare escludendo l'estensione, l'ultimo carattere del nome, qualsiasi esso sia, con il modello \verb='s/\w\./\./'=.
+Potremo voler rinominare i file premettendo ai nomi un prefisso, per esempio
+\texttt{123}, con il modello \verb='s/^/123/'= oppure, viceversa, potremo voler
+eliminarlo con il modello \verb='s/^\w{3}//'=, oppure ancora eliminare
+escludendo l'estensione, l'ultimo carattere del nome, qualsiasi esso sia, con il
+modello \verb='s/\w\./\./'=.
 
 
 \subsection{Correzione massiva di sorgenti}
 
-Si tratta del problema della sostituzione di occorrenze in un testo che possiamo risolvere avvalendoci dei comandi di cerca/sostituisci presenti negli editor ma se sono coinvolti molti file è più conveniente l'uso del terminale. La sintassi generale del comando Perl da riga di comando è la seguente:
+Si tratta del problema della sostituzione di occorrenze in un testo che possiamo
+risolvere avvalendoci dei comandi di cerca/sostituisci presenti negli editor ma
+se sono coinvolti molti file è più conveniente l'uso del terminale. La sintassi
+generale del comando Perl da riga di comando è la seguente:
 \begin{verbatim}
 $ perl -p -i -e 's/<RegExpr>/<nuovo>/modificatori' <files>
 \end{verbatim}
 
-Esaminiamo le tre opzioni iniziali: \texttt{-p} indica che dovranno essere esaminate tutte le righe di testo nei file, \texttt{-i} indica che saranno modificati direttamente i file originali (opzione \emph{inline}) e \texttt{-e} indica che dovrà essere eseguito il codice specificato di seguito (opzione \emph{execute}).
+Esaminiamo le tre opzioni iniziali: \texttt{-p} indica che dovranno essere
+esaminate tutte le righe di testo nei file, \texttt{-i} indica che saranno
+modificati direttamente i file originali (opzione \emph{inline}) e \texttt{-e}
+indica che dovrà essere eseguito il codice specificato di seguito (opzione
+\emph{execute}).
 
-Abbiamo poi l'argomento che specifica il pattern di sostituzione con campi separati da uno slash, nel formato già incontrato per il comando \texttt{rename}.
+Abbiamo poi l'argomento che specifica il pattern di sostituzione con campi
+separati da uno slash, nel formato già incontrato per il comando
+\texttt{rename}.
 
-Nell'eseguire questi comandi si deve prestare attenzione verificando la corretta esecuzione. \`E consigliabile fare una copia di backup dei file perché potrebbe presentarsi la necessità di ripristinare i file originali, e ragionare sulla carta elaborando tutti i casi possibili.
+Nell'eseguire questi comandi si deve prestare attenzione verificando la corretta
+esecuzione. \`E consigliabile fare una copia di backup dei file perché potrebbe
+presentarsi la necessità di ripristinare i file originali, e ragionare sulla
+carta elaborando tutti i casi possibili.
 
 
 \subsubsection{Sostituire una parola}
 
-Il nostro revisore ci ha segnalato gentilmente che nella tesi anziché scrivere ``perché'' abbiamo invece utilizzato l'accento sbagliato scrivendo ``perchè''. Dopo aver compreso l'errore\footnote{Leggendo per esempio l'articolo ``Norme tipografiche per l’italiano in \LaTeX'' di Gustavo Cevolani disponibile all'indirizzo web sul \href{http://www.guitex.org/home/images/ArsTeXnica/AT001/norme\%20tipografiche\%20per\%20litaliano\%20in\%20latex.pdf}{sito del \GuIT*}.} eseguiamo una copia di sicurezza dei sorgenti e lanciamo il comando seguente una volta impostata la working directory a quella che contiene la cartella \texttt{chapter} con i file da correggere:
+Il nostro revisore ci ha segnalato gentilmente che nella tesi anziché scrivere
+``perché'' abbiamo invece utilizzato l'accento sbagliato scrivendo ``perchè''.
+Dopo aver compreso l'errore\footnote{Leggendo per esempio l'articolo ``Norme
+tipografiche per l’italiano in \LaTeX'' di Gustavo Cevolani disponibile
+all'indirizzo web sul
+\href{http://www.guitex.org/home/images/ArsTeXnica/AT001/norme\%20tipografiche\%20per\%20litaliano\%20in\%20latex.pdf}{sito
+del \GuIT*}.} eseguiamo una copia di sicurezza dei sorgenti e lanciamo il
+comando seguente una volta impostata la working directory a quella che contiene
+la cartella \texttt{chapter} con i file da correggere:
 \begin{verbatim}
 $ perl -p -i -e 's/perchè/perché/g' chapter/*.tex
 \end{verbatim}
 
-Nel testo potrebbero esserci dei ``Perchè'' ed il nostro comando precedente non li sostituirebbe. Se avessimo messo il modificatore \texttt{i} di case-insensitive il termine ``Perchè'' verrebbe sostituito con ``perché'' perdendo la maiuscola iniziale.
+Nel testo potrebbero esserci dei ``Perchè'' ed il nostro comando precedente non
+li sostituirebbe. Se avessimo messo il modificatore \texttt{i} di
+case-insensitive il termine ``Perchè'' verrebbe sostituito con ``perché''
+perdendo la maiuscola iniziale.
 Una prima soluzione è limitarsi alla sostituzione di ``erchè'':
 \begin{verbatim}
 $ perl -p -i -e 's/erchè/erché/g' chapter/*.tex
@@ -69,17 +141,34 @@ Oppure possiamo utilizzare un \emph{gruppo} creato con le parentesi tonde:
 $ perl -p -i -e 's/(P|p)erchè/$1erché/g' chapter/*.tex
 \end{verbatim}
 
-In quest'ultimo comando l'espressione regolare \texttt{/(P|p)erchè/} comprende un carattere iniziale che può essere \texttt{P} oppure \texttt{p} grazie al carattere \texttt{|}. Poiché la corrispondenza si trova tra parentesi tonde, il carattere trovato viene restituito nella variabile \texttt{\$1} che andrà a comporre correttamente la parola da sostituire.
+In quest'ultimo comando l'espressione regolare \texttt{/(P|p)erchè/} comprende
+un carattere iniziale che può essere \texttt{P} oppure \texttt{p} grazie al
+carattere \texttt{|}. Poiché la corrispondenza si trova tra parentesi tonde, il
+carattere trovato viene restituito nella variabile \texttt{\$1} che andrà a
+comporre correttamente la parola da sostituire.
 
-Come avrete notato i comandi sono potenti ma occorre fare molta attenzione perché potremo non accorgerci di aver sostituito occorrenze che in realtà non avrebbero dovuto esserlo. Per esempio la parola da sostituire potrebbe essere parte di altre parole più lunghe.
+Come avrete notato i comandi sono potenti ma occorre fare molta attenzione
+perché potremo non accorgerci di aver sostituito occorrenze che in realtà non
+avrebbero dovuto esserlo. Per esempio la parola da sostituire potrebbe essere
+parte di altre parole più lunghe.
 
 \subsubsection{I numeri decimali in ambiente matematico}
 
-Nell'ambiente matematico di \TeX{} la virgola produce l'aggiunta di un piccolo spazio. Questo si può evitare inserendo la virgola in un gruppo per rappresentare correttamente i numeri decimali: scrivendo \verb!\( v = 12,00 \)! si ottiene \( v = 12,\, 00 \) mentre con \verb!\( v = 12{,}00 \)! si ottiene \( v = 12,00 \).
+Nell'ambiente matematico di \TeX{} la virgola produce l'aggiunta di un piccolo
+spazio. Questo si può evitare inserendo la virgola in un gruppo per
+rappresentare correttamente i numeri decimali: scrivendo \verb!\( v = 12,00 \)!
+si ottiene \( v = 12,\, 00 \) mentre con \verb!\( v = 12{,}00 \)! si ottiene \(
+v = 12,00 \).
 
-Racchiudere la virgola di separazione decimale in un gruppo, fu la soluzione adottata in un vecchio progetto. Ora invece vogliamo riutilizzare quei file sorgenti risolvendo con il pacchetto \packstyle{siunitx} ed inserendo i numeri decimali in una macro \cs{num}. 
+Racchiudere la virgola di separazione decimale in un gruppo, fu la soluzione
+adottata in un vecchio progetto. Ora invece vogliamo riutilizzare quei file
+sorgenti risolvendo con il pacchetto \packstyle{siunitx} ed inserendo i numeri
+decimali in una macro \cs{num}.
 
-Il pattern da ricercare consiste in due sequenze di numeri separate da \texttt{\{,\}}, ovvero \verb=\d+{,}\d+= dove il simbolo \verb=\d= significa una singola cifra (e sta per decimal), l'indicatore \texttt{+} indica una o più ripetizioni. Il comando completo è dunque:
+Il pattern da ricercare consiste in due sequenze di numeri separate da
+\texttt{\{,\}}, ovvero \verb=\d+{,}\d+= dove il simbolo \verb=\d= significa una
+singola cifra (e sta per decimal), l'indicatore \texttt{+} indica una o più
+ripetizioni. Il comando completo è dunque:
 \begin{verbatim}
 $ perl -p -i -e 's/(\d+){,}(\d+)/\\num{$1.$2}/g' *.tex
 \end{verbatim}
@@ -88,21 +177,30 @@ $ perl -p -i -e 's/(\d+){,}(\d+)/\\num{$1.$2}/g' *.tex
 
 \subsubsection{Sostituire una parola con una macro}
 
-In un progetto suddiviso in molti file sorgenti abbiamo digitato molte volte il termine Metapost --- il programma di grafica vettoriale --- ma solo adesso ci siamo accorti che esiste il pacchetto \packstyle{mflogo} che mette a disposizione la macro \cs{MP}.
+In un progetto suddiviso in molti file sorgenti abbiamo digitato molte volte il
+termine Metapost --- il programma di grafica vettoriale --- ma solo adesso ci
+siamo accorti che esiste il pacchetto \packstyle{mflogo} che mette a
+disposizione la macro \cs{MP}.
 
 Un comando potrebbe essere:
 \begin{verbatim}
 $ perl -p -i -e 's/metapost/\\MP{}/ig' *.tex
 \end{verbatim}
-che sostituirebbe nei sorgenti tutte le occorrenze di ``Metapost'' oppure ``METAPOST'' oppure ancora di ``metapost'' con la macro \cs{MP}\texttt{\{\}}.
+che sostituirebbe nei sorgenti tutte le occorrenze di ``Metapost'' oppure
+``METAPOST'' oppure ancora di ``metapost'' con la macro \cs{MP}\texttt{\{\}}.
 
-Qualcosa di più si potrebbe fare inserendo le doppie graffe solo quando necessario per salvaguardare lo spazio che altrimenti \TeX{} assorbirebbe, con questi due comandi:
+Qualcosa di più si potrebbe fare inserendo le doppie graffe solo quando
+necessario per salvaguardare lo spazio che altrimenti \TeX{} assorbirebbe, con
+questi due comandi:
 \begin{verbatim}
 $ perl -p -i -e 's/metapost(\s+|\w)/\\MP{}$1/ig' *.tex
 $ perl -p -i -e 's/metapost(\W)/\\MP$1/ig' *.tex
 \end{verbatim}
 
-Il primo pattern individua solamente le occorrenze in cui al termine ``metapost'' segue uno o più caratteri spazio oppure un carattere alfabetico, il secondo individua solamente le occorrenze in cui al termine ``metapost'' segue un carattere non alfabetico.
+Il primo pattern individua solamente le occorrenze in cui al termine
+``metapost'' segue uno o più caratteri spazio oppure un carattere alfabetico, il
+secondo individua solamente le occorrenze in cui al termine ``metapost'' segue
+un carattere non alfabetico.
 
 Una tabella delle sostituzioni è la seguente:
 \begin{Verbatim}[fontsize=\small]
@@ -114,37 +212,57 @@ Una tabella delle sostituzioni è la seguente:
 
 \subsubsection{Righe magiche}
 
-Le righe magiche iniziano con il carattere \texttt{\%} perciò sono ignorate durante la compilazione, mentre invece sono elaborate da alcuni shell editor come TeX Works per impostare la codifica del testo, selezionare il programma di composizione e dichiarare il nome del file sorgente che dovrà essere compilato effettivamente. Ciò risulta utilissimo per lavorare a progetti complessi in cui ci sono più file sorgenti separati in diverse cartelle.
+Le righe magiche iniziano con il carattere \texttt{\%} perciò sono ignorate
+durante la compilazione, mentre invece sono elaborate da alcuni shell editor
+come TeX Works per impostare la codifica del testo, selezionare il programma di
+composizione e dichiarare il nome del file sorgente che dovrà essere compilato
+effettivamente. Ciò risulta utilissimo per lavorare a progetti complessi in cui
+ci sono più file sorgenti separati in diverse cartelle.
 
 Le righe magiche di questo stesso sorgente sono le seguenti:
 \begin{verbatim}
 % !TEX encoding = UTF-8
 % !TEX program = pdflatex
-% !TEX root = ../guidaConsole.tex
+% !TEX root = ../guidaconsole.tex
 \end{verbatim}
-L'editor lancerà la compilazione con \prog{pdflatex} non del file attualmente caricato ma del sorgente principale chiamato \texttt{guidaConsole.tex} salvato nella cartella superiore (sono presenti infatti i due punti \texttt{..}).
+L'editor lancerà la compilazione con \prog{pdflatex} non del file attualmente
+caricato ma del sorgente principale chiamato \texttt{guidaconsole.tex} salvato
+nella cartella superiore (sono presenti infatti i due punti \texttt{..}).
 
-Ci proponiamo di modificare il nome del sorgente principale in tutti i file presenti nella cartella \texttt{chapter} con un comando RE. Se supponiamo come in questo caso che il nome del file contenga solo caratteri alfanumerici il pattern che lo rappresenta è \texttt{\textbackslash w+}. Dovremo inoltre scrivere \texttt{\textbackslash .} al posto del punto semplice \texttt{.} e \texttt{\textbackslash /} al posto di \texttt{/} perché sono entrambi metacaratteri: 
+Ci proponiamo di modificare il nome del sorgente principale in tutti i file
+presenti nella cartella \texttt{chapter} con un comando RE. Se supponiamo come
+in questo caso che il nome del file contenga solo caratteri alfanumerici il
+pattern che lo rappresenta è \texttt{\textbackslash w+}. Dovremo inoltre
+scrivere \texttt{\textbackslash .} al posto del punto semplice \texttt{.} e
+\texttt{\textbackslash /} al posto di \texttt{/} perché sono entrambi
+metacaratteri:
 \begin{Verbatim}[fontsize=\small]
 perl -p -i -e 's/(\.\.\|\.)/\w+\.tex/$1\/main.tex/' chapter/*.tex
 \end{Verbatim}
 
 % oi_begin_comment
-% Ho un dubbio sul livello di questo paragrafo; credo anche che sia necessario un approfondimento su CygWin
+% Ho un dubbio sul livello di questo paragrafo; credo anche che sia necessario
+un approfondimento su CygWin
 % oi_end_comment
 \subsubsection{Ancora sulle righe magiche}
 \label{sssec:addheader}
 
-Supponiamo di aver scritto diverso tempo fa dei sorgenti \LaTeX, quando ancora non conoscevamo TeX Works. In quei file ovviamente non sono
+Supponiamo di aver scritto diverso tempo fa dei sorgenti \LaTeX, quando ancora
+non conoscevamo TeX Works. In quei file ovviamente non sono
 presenti le righe magiche che TeX Works riesce ad
-interpretare impostando codifica e programma di composizione, ed oggi, a distanza di tempo, vorremmo aggiungerle a ciascuno di quei file \texttt{.tex}.
+interpretare impostando codifica e programma di composizione, ed oggi, a
+distanza di tempo, vorremmo aggiungerle a ciascuno di quei file \texttt{.tex}.
 
-Per questo inseriamo in una cartella i sorgenti ed un file che contenga le righe magiche di cui abbiamo bisogno, per esempio queste:
+Per questo inseriamo in una cartella i sorgenti ed un file che contenga le righe
+magiche di cui abbiamo bisogno, per esempio queste:
 \begin{Verbatim}
 % !TEX encoding = UTF-8
 % !TEX program = pdflatex
 \end{Verbatim}
-e salviamo questo file con il nome \filestyle{header} (possiamo anche non assegnare nessuna estensione). A questo punto apriamo la shell e scriviamo la riga\footnote{Per una questione di praticità in questo documento il codice è stato spezzato su più righe.}
+e salviamo questo file con il nome \filestyle{header} (possiamo anche non
+assegnare nessuna estensione). A questo punto apriamo la shell e scriviamo la
+riga\footnote{Per una questione di praticità in questo documento il codice è
+stato spezzato su più righe.}
 \begin{Verbatim}
 for i in *.tex; do \
  cp header header_temp; \
@@ -152,13 +270,26 @@ for i in *.tex; do \
  mv header_temp $i; \
 done
 \end{Verbatim}
-e vedremo come, premendo il tasto \keys{\return}, a tutti i file sarà stato aggiunto quanto scritto nel file \filestyle{header}. 
+e vedremo come, premendo il tasto \keys{\return}, a tutti i file sarà stato
+aggiunto quanto scritto nel file \filestyle{header}.
 
-Il codice è molto semplice: con \verb!cp header header_temp;! si crea una copia del file che contiene le righe magiche; con \verb!cat $i >> header_temp;! uniamo il contenuto del file \texttt{.tex} che la variabile \verb!$i! sta scorrendo, con il file \filestyle{header\_temp}; infine con \verb!mv header_temp $i;! rinominiamo \filestyle{header\_temp} con il nome del file \texttt{.tex} a cui abbiamo aggiunto le righe sovrascrivendolo.
+Il codice è molto semplice: con \verb!cp header header_temp;! si crea una copia
+del file che contiene le righe magiche; con \verb!cat $i >> header_temp;! uniamo
+il contenuto del file \texttt{.tex} che la variabile \verb!$i! sta scorrendo,
+con il file \filestyle{header\_temp}; infine con \verb!mv header_temp $i;!
+rinominiamo \filestyle{header\_temp} con il nome del file \texttt{.tex} a cui
+abbiamo aggiunto le righe sovrascrivendolo.
 
-Per affinamenti successivi si può sicuramente ottenere un codice più efficiente (e questo forse non lo è, ma sicuramente raggiunge il suo scopo), da salvare in un file di estensione \texttt{.sh} che possa, per esempio, lavorare su file presenti in sotto-cartelle, oppure verificare che tali righe siano già presenti o meno. 
+Per affinamenti successivi si può sicuramente ottenere un codice più efficiente
+(e questo forse non lo è, ma sicuramente raggiunge il suo scopo), da salvare in
+un file di estensione \texttt{.sh} che possa, per esempio, lavorare su file
+presenti in sotto-cartelle, oppure verificare che tali righe siano già presenti
+o meno.
 
-Quanto scritto può essere fatto ovviamente su sistemi operativi Linux e Mac OS con la shell di sistema; per i sistemi operativi Windows tale procedura è possibile a patto di installare \href{http://www.cygwin.com/}{Cygwin} o un altro emulatore Unix.
+Quanto scritto può essere fatto ovviamente su sistemi operativi Linux e Mac OS
+con la shell di sistema; per i sistemi operativi Windows tale procedura è
+possibile a patto di installare \href{http://www.cygwin.com/}{Cygwin} o un altro
+emulatore Unix.
 
 
 \endinput
