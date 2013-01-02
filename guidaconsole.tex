@@ -1,0 +1,82 @@
+% !TEX encoding = UTF-8
+% !TEX program = pdflatex
+% !TEX root = guidaconsole.tex
+
+\documentclass[b5paper,11pt,openany]{guidatematica}
+
+\usepackage{tcolorbox}
+\usepackage{guit}% \GuIT
+\usepackage{menukeys}
+\usepackage{mflogo}
+\usepackage{cclicenses}
+
+\definecolor{guitgreen}{rgb}{0,0.5,0}
+
+\tcbset{colback=guitgreen!10,
+        colframe=guitgreen,
+        fonttitle=\sffamily}
+
+\usepackage[
+   colorlinks=true,
+   linkcolor=blue,
+   citecolor = blue,
+   urlcolor = blue,
+   pdftitle={Utilizzo della console a riga di comando},
+   pdfauthor={Roberto Giacomelli},
+   pdfsubject={Guida tematica del GuIT},
+   pdfkeywords={console, terminale, riga di comando}
+   ]{hyperref}
+
+\frenchspacing
+
+\title{%
+\includegraphics[width=0.1\textwidth]{image/terminal-icon}%
+\par Guida tematica alla riga di comando}
+\author{Roberto Giacomelli}
+\date{27/12/2012 v.1.1.2}
+
+\begin{document}
+\frontmatter
+\maketitle
+\rule{0pt}{1pt}
+
+\vfill
+
+\noindent\includegraphics[width=\textwidth]{image/title}
+
+\bigskip
+\noindent\includegraphics[width=\textwidth]{image/copyright}
+
+\bigskip
+\scalebox{1.6}{\cc \ccby \ccnc \ccsa}
+\newpage
+\tableofcontents
+\newpage
+
+\input{section/premessa}
+
+\mainmatter
+
+\input{section/intro}
+
+\input{section/shell}
+
+\input{section/eser}
+
+\input{section/argavanz}
+
+\backmatter
+\input{section/notefinali}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
