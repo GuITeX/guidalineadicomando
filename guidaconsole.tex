@@ -3,6 +3,8 @@
 % !TEX root = guidaconsole.tex
 
 \documentclass[b5paper,11pt,openany]{guidatematica}
+\ProvidesFile{guidaconsole.tex}[2013/01/04 v.1.2 Guida alla riga di comando]
+\GetFileInfo{guidaconsole.tex}
 
 \usepackage{tcolorbox}
 \usepackage{guit}% \GuIT
@@ -33,7 +35,7 @@
 \includegraphics[width=0.1\textwidth]{image/terminal-icon}%
 \par Guida tematica alla riga di comando}
 \author{Roberto Giacomelli}
-\date{27/12/2012 v.1.1.2}
+\date{\filedate{} --- \fileversion}
 
 \begin{document}
 \frontmatter
@@ -64,6 +66,8 @@
 \input{section/eser}
 
 \input{section/argavanz}
+
+\input{section/scripting}
 
 \backmatter
 \input{section/notefinali}

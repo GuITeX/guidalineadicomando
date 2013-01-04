@@ -1,5 +1,11 @@
 HISTORY
 
+Versione 1.2 - 2012 01 03
+Nuova impaginazione ad 80 caratteri per linea per facilitare il confronto tra
+le versioni dello stesso file nel repository git.
+Nuova organizzazione della sezione avanzata con il nuovo capitolo sullo
+scripting.
+
 Versione 1.1.2 - 2012 12 27
 Derivata dal merge del contributo di ansys (Orlando Iovino) con l'aggiunta
 nella sezione avanzata di come aggiungere le righe magiche all'inizio di un

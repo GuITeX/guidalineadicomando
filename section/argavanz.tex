@@ -11,6 +11,12 @@ svolgere con altri strumenti. Si tratta di una collezione di casi pratici
 risolti con l'uso avanzato della riga di comando che si dimostra essere un
 sistema molto potente.
 
+% TODO: argomenti ancora da scrivere ed inserire
+%\section{Creazione di cartelle ramificate}
+%\section{Aprire il terminale da una cartella}
+%\section{Redirezione dei dati}
+%\section{Operare con i diritti di root}
+
 \section{Espressioni regolari}
 
 Di solito le chiavi delle \emph{espressioni regolari} sono piuttosto
@@ -77,7 +83,7 @@ $ rename 'y/A-Z/a-z/' image/*
 \end{verbatim}
 
 La trasformazione dei caratteri spazio in trattini del primo esempio, può essere
-ottenuta anche con il modello RE di trasliterazione \texttt{'y/ /-/'}.
+ottenuta anche con il modello RE di traslitterazione \texttt{'y/ /-/'}.
 
 Potremo voler rinominare i file premettendo ai nomi un prefisso, per esempio
 \texttt{123}, con il modello \verb='s/^/123/'= oppure, viceversa, potremo voler
@@ -198,9 +204,9 @@ $ perl -p -i -e 's/metapost(\W)/\\MP$1/ig' *.tex
 \end{verbatim}
 
 Il primo pattern individua solamente le occorrenze in cui al termine
-``metapost'' segue uno o più caratteri spazio oppure un carattere alfabetico, il
-secondo individua solamente le occorrenze in cui al termine ``metapost'' segue
-un carattere non alfabetico.
+``metapost'' segue uno o più caratteri spazio oppure un carattere alfabetico,
+il secondo individua solamente le occorrenze in cui al termine ``metapost''
+segue un carattere non alfabetico.
 
 Una tabella delle sostituzioni è la seguente:
 \begin{Verbatim}[fontsize=\small]
@@ -209,6 +215,15 @@ Una tabella delle sostituzioni è la seguente:
 ...lo sviluppo di Metapost.        -> ...lo sviluppo di \MP.
 \section{Viva Metapost}            -> \section{Viva \MP}
 \end{Verbatim}
+
+I comandi si possono assemblare in un unico comando separando le espressioni di
+sostituzione con punti e virgola (il carattere di slash può essere usato per
+spezzare su più righe un comando molto lungo per renderlo più leggibile):
+\begin{verbatim}
+$ perl -pi -e \
+ 's/metapost(\s+|\w)/\\MP{}$1/ig; s/metapost(\W)/\\MP$1/ig' \
+ *.tex
+\end{verbatim}
 
 \subsubsection{Righe magiche}
 
@@ -240,67 +255,26 @@ metacaratteri:
 perl -p -i -e 's/(\.\.\|\.)/\w+\.tex/$1\/main.tex/' chapter/*.tex
 \end{Verbatim}
 
-% oi_begin_comment
-% Ho un dubbio sul livello di questo paragrafo; credo anche che sia necessario
-un approfondimento su CygWin
-% oi_end_comment
-\subsubsection{Ancora sulle righe magiche}
-\label{sssec:addheader}
+Ora, invece di correggere una riga magica già presente nei file, vorremmo che
+siano aggiunte ad una collezione di sorgenti \texttt{.tex} posizionati nella
+cartella \texttt{cap} della nostra tesi.
 
-Supponiamo di aver scritto diverso tempo fa dei sorgenti \LaTeX, quando ancora
-non conoscevamo TeX Works. In quei file ovviamente non sono
-presenti le righe magiche che TeX Works riesce ad
-interpretare impostando codifica e programma di composizione, ed oggi, a
-distanza di tempo, vorremmo aggiungerle a ciascuno di quei file \texttt{.tex}.
-
-Per questo inseriamo in una cartella i sorgenti ed un file che contenga le righe
-magiche di cui abbiamo bisogno, per esempio queste:
-\begin{Verbatim}
-% !TEX encoding = UTF-8
-% !TEX program = pdflatex
+Poiché il carattere \verb=^= simboleggia l'inizio della linea potremo
+impartire dalla cartella principale i tre comandi seguenti ciascuno col il
+compito di inserire una riga magica come prima riga:
+\begin{Verbatim}[fontsize=\small]
+perl -0777 -pi -e 's/^/% !TEX root = ..\/tesi.tex\n\n/' cap/*.tex
+perl -0777 -pi -e 's/^/% !TEX program = pdflatex\n/' cap/*.tex
+perl -0777 -pi -e 's/^/% !TEX encoding = UTF-8\n/' cap/*.tex
 \end{Verbatim}
-e salviamo questo file con il nome \filestyle{header} (possiamo anche non
-assegnare nessuna estensione). A questo punto apriamo la shell e scriviamo la
-riga\footnote{Per una questione di praticità in questo documento il codice è
-stato spezzato su più righe.}
-\begin{Verbatim}
-for i in *.tex; do \
- cp header header_temp; \
- cat $i >> header_temp; \
- mv header_temp $i; \
-done
-\end{Verbatim}
-e vedremo come, premendo il tasto \keys{\return}, a tutti i file sarà stato
-aggiunto quanto scritto nel file \filestyle{header}.
 
-Il codice è molto semplice: con \verb!cp header header_temp;! si crea una copia
-del file che contiene le righe magiche; con \verb!cat $i >> header_temp;! uniamo
-il contenuto del file \texttt{.tex} che la variabile \verb!$i! sta scorrendo,
-con il file \filestyle{header\_temp}; infine con \verb!mv header_temp $i;!
-rinominiamo \filestyle{header\_temp} con il nome del file \texttt{.tex} a cui
-abbiamo aggiunto le righe sovrascrivendolo.
+L'opzione \texttt{-0777} fa in modo che l'intero file sia trattato come
+un'unica linea impostando un carattere di separazione inesistente altrimenti i
+caratteri di sostituzione verrebbero aggiunti per ogni inizio di riga. Inoltre
+dobbiamo dare le stringhe di sostituzione nell'ordine inverso a quello
+desiderato perché le successive si inseriranno in testa --- non che l'ordine
+importi nel caso delle righe magiche.
 
-Per affinamenti successivi si può sicuramente ottenere un codice più efficiente
-(e questo forse non lo è, ma sicuramente raggiunge il suo scopo), da salvare in
-un file di estensione \texttt{.sh} che possa, per esempio, lavorare su file
-presenti in sotto-cartelle, oppure verificare che tali righe siano già presenti
-o meno.
-
-Quanto scritto può essere fatto ovviamente su sistemi operativi Linux e Mac OS
-con la shell di sistema; per i sistemi operativi Windows tale procedura è
-possibile a patto di installare \href{http://www.cygwin.com/}{Cygwin} o un altro
-emulatore Unix.
-
-
-\endinput
-
-%argomenti ancora da scrivere
-\section{Creazione di cartelle ramificate}
-\section{Aprire il terminale da una cartella}
-\section{Redirezione dei dati}
-\section{Operare con i diritti di root}
-\section{Scripting}
-
-
-
+Nel prossimo capitolo vedremo un altro metodo per inserire le righe magiche
+all'inizio dei file sorgenti basato sullo scripting di sistema.
 

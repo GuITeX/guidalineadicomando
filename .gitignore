@@ -10,7 +10,7 @@
 *.zip
 # abbiamo deciso di non includere nel repo
 # il file pdf compilato
-guidaConsole.pdf
+guidaconsole.pdf
 # ed anche di escludere i file di classe
 # scaricabili direttamente dal repo apposito
 # sul progetto GuITeX

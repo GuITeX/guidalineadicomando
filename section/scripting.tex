@@ -1,0 +1,247 @@
+% !TEX encoding = UTF-8
+% !TEX program = pdflatex
+% !TEX root = ../guidaconsole.tex
+
+\chapter{Scripting}
+\label{chapScripting}
+
+In questa sezione ci addentreremo nella programmazione di shell a cui daremo
+la seguente definizione:
+
+\begin{tcolorbox}[title=Definizione di \emph{Scripting}]
+Lo Scripting è la scrittura di codice secondo un linguaggio dinamico che verrà
+eseguito direttamente da un interprete
+\end{tcolorbox}
+
+Quello che caratterizza lo scripting rispetto all'attività alla riga di
+comando descritta fino ad ora è dunque la scrittura di un \emph{programma}
+vero e proprio la cui sintassi dovrà essere conforme ad uno specifico
+linguaggio che non prevede la dichiarazione preventiva del tipo di dato, che
+viene invece stabilito \emph{dinamicamente} durante l'esecuzione.
+
+Per esempio, l'assegnazione di un intero e di una stringa è qualcosa di simile
+al seguente frammento di codice:
+\begin{Verbatim}
+n = 10         % invece di:  int n = 10
+s = "dieci"    % invece di:  string s = "dieci"
+\end{Verbatim}
+
+L'esecuzione del codice viene affidata ad un \emph{interprete} che lo
+elabora direttamente secondo una procedura anche molto sofisticata che rende
+davvero minima la differenza dei linguaggi di scripting più moderni dai
+linguaggi compilati il cui codice invece tradotto in una forma binaria
+memorizzata in un file oggetto che sarà poi quello eseguito effettivamente.
+Questa sempre più sfumata distinzione tra linguaggi interpretati e compilati è
+dovuta al fatto che molto spesso anche i primi traducono il sorgente in
+una forma binaria intermedia per ambienti di esecuzione detti \emph{macchine
+virtuali}.
+
+La shell dei più diffusi sistemi operativi offre un linguaggio di
+scripting predefinito. Non vi è alcuna differenza concettuale se il codice
+viene digitato direttamente al prompt dei comandi oppure letto da un file di
+testo che assume il nome di \emph{script}.
+
+I linguaggi di scripting più conosciuti sono
+\href{http://www.python.org/}{Python}, \href{http://www.lua.org/}{Lua},
+\href{http://www.perl.org/}{Perl}, \href{http://www.ruby-lang.org/}{Ruby},
+\href{http://www.falconpl.org/}{Falcon},
+\href{http://it.wikipedia.org/wiki/JavaScript}{Javascript}, eccetera. Quasi
+sempre si tratta di software libero disponibile per le piattaforme più diffuse
+tra cui ovviamente i sistemi Windows, Linux ed OS X.
+
+\section{Sha bang\#!}
+
+Abbiamo lasciato in sospeso la risposta ad una domanda che forse è balenata al
+lettore: visto che esistono molti linguaggi di scripting, come fa la shell al
+momento dell'esecuzione di uno script a chiamare l'interprete giusto?
+
+Per tutti i sistemi ed in particolare per quelli Windows, l'informazione che
+lega lo script all'interprete per cui è stato scritto è fornita dall'utente in
+modo esplicito, ovvero lo script deve essere lanciato da riga di comando dando
+il nome del file che lo contiene come argomento dell'interprete.
+
+Oppure, può essere sufficiente un doppio click sull'icona del file di script
+se l'estensione è stata associata al corrispondente eseguibile dell'interprete
+tramite il riconoscimento automatico degli ambienti ad interfaccia grafica di
+Linux e Mac od il registro di sistema in Windows.
+
+Sui sistemi di tipo Unix --- come Linux ed OS X --- la risposta alla domanda
+iniziale può tuttavia essere molto semplice: inserire il riferimento
+all'interprete corretto all'interno dello script stesso --- generalmente nella
+prima riga --- ed è proprio quello che rappresenta la così detta
+\emph{sha~bang}, formata dalla coppia di caratteri \texttt{\#!} seguiti dal
+percorso dell'eseguibile. Quasi tutti i linguaggi di scripting supportano la
+sha~bang nel senso che si tratta di una riga contenente informazioni per la
+shell che non deve essere interpretata ma perfettamente ignorata come se fosse
+un commento.
+
+Con questo trucco il nome del file dello script diventa un comando,
+esattamente come quelli di sistema compilati. Per di più nella maggior parte
+dei linguaggi è prevista la possibilità di elaborare gli argomenti digitati
+dall'utente al terminale.
+
+Immaginiamo uno script in linguaggio Lua contenuto nel file \texttt{compila}
+che accetti un argomento. Per eseguirlo possiamo dare il comando:
+\begin{Verbatim}
+$ lua compila dir  % se il sistema non supporta la sha bang  
+$ compila dir      % se invece si
+\end{Verbatim}
+
+\section{Esempi}
+
+Terminata la presentazione dei concetti basilari dello scripting, possiamo
+scrivere i nostri script personali utili ad automatizzare processi o a produrre
+vere e proprie applicazioni. L'argomento è vastissimo: possiamo pensare di
+scrivere semplici sequenze di comandi oppure creare complessi programmi ad
+interfaccia grafica, scegliendo tra molti ed efficienti linguaggi e librerie.
+
+% oi_begin_comment
+% Credo anche che sia necessario un approfondimento su CygWin
+% oi_end_comment
+\subsection{Ancora sulle righe magiche}
+\label{sssec:addheader}
+
+Supponiamo di aver scritto diverso tempo fa dei sorgenti \LaTeX, quando ancora
+non conoscevamo l'editor TeX Works. In quei file ovviamente non sono presenti le
+righe magiche che TeX Works riesce ad interpretare impostando codifica e
+programma di composizione, ed oggi, a distanza di tempo, vorremmo aggiungerle a
+ciascuno di quei file \texttt{.tex}.
+
+Per questo inseriamo in una cartella i sorgenti ed un file che contenga le
+righe magiche di cui abbiamo bisogno, per esempio queste:
+\begin{Verbatim}
+% !TEX encoding = UTF-8
+% !TEX program = pdflatex
+\end{Verbatim}
+e salviamo questo file con il nome \filestyle{header} (possiamo anche non
+assegnare nessuna estensione). A questo punto apriamo la shell e scriviamo la
+riga\footnote{Per una questione di praticità in questo documento il codice è
+stato spezzato su più righe.}
+\begin{Verbatim}
+for i in *.tex; do \
+ cp header header_temp; \
+ cat $i >> header_temp; \
+ mv header_temp $i; \
+done
+\end{Verbatim}
+e vedremo come, premendo il tasto \keys{\return}, a tutti i file sarà stato
+aggiunto quanto scritto nel file \filestyle{header}.
+
+Si tratta di codice per Bash che risolve in altro modo un problema già
+incontrato tra i comandi avanzati del capitolo precedente. Il codice è molto
+semplice: con \verb!cp header header_temp;! si crea una copia del file che
+contiene le righe magiche; con \verb!cat $i >> header_temp;! uniamo il
+contenuto del file \texttt{.tex} che la variabile \verb!$i! sta
+scorrendo, con il file \filestyle{header\_temp}; infine con
+\verb!mv header_temp $i;! rinominiamo \filestyle{header\_temp} con il nome del
+file \texttt{.tex} a cui abbiamo aggiunto le righe sovrascrivendolo.
+
+Per affinamenti successivi si può sicuramente ottenere un codice più efficiente
+(e questo forse non lo è, ma sicuramente raggiunge il suo scopo), da salvare in
+un file di estensione \texttt{.sh} che possa, per esempio, lavorare su file
+presenti in sotto-cartelle, oppure verificare che tali righe siano già presenti
+o meno.
+
+Quanto scritto può essere fatto ovviamente su sistemi operativi Linux e Mac OS
+X con la shell di sistema; per i sistemi operativi Windows tale procedura è
+possibile a patto di installare \href{http://www.cygwin.com/}{Cygwin} o un
+altro emulatore Unix.
+
+\subsection{Upload via ftp}
+
+Una caso che riguarda proprio le guide tematiche: vorremmo mettere a punto uno
+script che esegua la connessione sicura al sito del \GuIT*{} e provveda a
+caricarvi uno o più documenti \texttt{pdf} in modo da renderli disponibili per
+il download.
+
+Operativamente, l'esecuzione di uno script siffatto è molto più immediata che
+non utilizzare un programma ad interfaccia grafica che supporti il protocollo
+\texttt{ftp} (\emph{file transfert protocol}). Definiamo dapprima la sintassi
+del comando \textt{curl} a cui ci affidiamo per le transazioni \texttt{ftp} e
+poi creiamo lo script con il linguaggio di shell:
+Bash.
+\begin{Verbatim}
+$ curl -u <user>:<password> -T <file> <url destination path>
+\end{Verbatim}
+
+Il programma \href{http://curl.haxx.se/}{curl} supporta un notevole numero di
+protocolli di rete. L'opzione \texttt{-u} inserisce le credenziali dell'utente
+presso il server, l'opzione \texttt{-T} indica che desideriamo procedere al
+caricamento del file verso la destinazione remota. Il formato della destinazione definisce anche il tipo di connessione che desideriamo stabilire che nel caso in
+esame sarà una connessione \texttt{ftp}.
+
+Dopo aver indicato che si tratta di uno script per Bash\footnote{Nei moderni
+  sistemi Unix il programma \texttt{sh} non è altro che un collegamento al
+  programma \texttt{bash}, la Bourne Again Shell divenuta lo standard tra le
+  shell disponibili per i sistemi aperti ed anche per quelli Mac.} per mezzo
+della Sha~Bang, definiamo le variabili per il percorso di destinazione sul
+server remoto così da facilitare eventuali modifiche e, per mezzo di un ciclo
+esteso a tutti i file \texttt{pdf} contenuti nella cartella di lavoro,
+eseguiamo uno alla volta l'upload dei documenti delle guide.
+
+Di seguito è riportato il codice dello script. Si noti come l'uso delle
+variabili avviene con una modalità di espansione premettendo il carattere
+dollaro al nome.
+\begin{Verbatim}
+#!/bin/sh
+guit_ftp='ftp://ftp.guitex.org/'
+guit_dir='httpdocs/home/images/doc/GuideGuIT/'
+for f in *.pdf
+do
+   echo "Upload del file :$f"
+   curl -T $f $guit_ftp$guit_path$f
+   echo "Fatto!"
+done
+\end{Verbatim}
+
+Abbiamo trascurato di inserire le informazioni delle credenziali perché
+immaginiamo che esse siano reperibili automaticamente nell'opportuno formato
+nel file di configurazione di \texttt{curl} di nome \texttt{.curlrc} che si
+trova nella directory \texttt{home} dell'utente. Si sono tralasciati i
+problemi di sicurezza relativi alla conservazione e alla trasmissione sicura
+delle credenziali a favore della semplicità.
+
+Salvato il codice in un file chiamato \texttt{upguide} assegnamogli i
+diritti di esecuzione con il comando:
+\begin{Verbatim}
+$ chmod +x upguide
+\end{Verbatim}
+A questo punto il suo utilizzo è semplice: basterà avviarlo una volta impostata
+la cartella di lavoro a quella contenente i documenti da caricare sul sito.
+
+Potremo voler aggiungere allo script l'invio di una e-mail ad un elenco di
+interessati per comunicare la disponibilità di aggiornamenti\dots
+
+\subsection{Uno script con Lua}
+
+Come esempio di semplice script in un linguaggio diverso da Bash, consideriamo
+il codice Lua seguente. Lo scopo è stampare a video alcune informazioni centrate
+sulla riga di 80 caratteri, considerando la possibilità che l'utente specifichi
+quale argomento opzionale una lunghezza di riga diversa. I valori degli
+argomenti sono disponibili all'interno dello script nella tabella predefinita di
+nome \texttt{arg}:
+\begin{Verbatim}
+#!/usr/bin/lua
+ll = arg[1] or 80
+
+local function prt( s )
+   local n = (ll - #s)/2
+   local sp = string.rep(' ', n)
+   print(sp..s)
+end
+
+prt "Titolo:  Guida tematica alla riga di comando"
+prt "Collana: Le guide tematiche del GuIT"
+prt "eccetera..."
+\end{Verbatim}
+Al solito, per costruire lo script, salviamo il codice nel file
+\texttt{centermsg} rendendolo eseguibile con \texttt{chmode} se siamo in
+ambiente Unix, e digitiamo alla riga di comando:
+\begin{Verbatim}
+$ ./centermsg    # in Linux o Mac
+> lua centermsg  # in Windows
+\end{Verbatim}
+Ricordo che in Lua se una funzione, come in questo caso \texttt{prt}, prevede
+un unico argomento di tipo stringa o tabella, possiamo omettere le parentesi
+tonde.
+
