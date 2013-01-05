@@ -1,5 +1,9 @@
 HISTORY
 
+Versione 1.2.1 - 2012 01 05
+Precisazioni sulla shell di sistema sh ed altri miglioramenti al capitolo sullo
+scripting, su segnalazione attraverso il GuIT forum di Giordano Mosé. Grazie!
+
 Versione 1.2 - 2012 01 03
 Nuova impaginazione ad 80 caratteri per linea per facilitare il confronto tra
 le versioni dello stesso file nel repository git.
