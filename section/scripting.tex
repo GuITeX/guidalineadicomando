@@ -70,10 +70,12 @@ iniziale può tuttavia essere molto semplice: inserire il riferimento
 all'interprete corretto all'interno dello script stesso --- generalmente nella
 prima riga --- ed è proprio quello che rappresenta la così detta
 \emph{sha~bang}, formata dalla coppia di caratteri \texttt{\#!} seguiti dal
-percorso dell'eseguibile. Quasi tutti i linguaggi di scripting supportano la
-sha~bang nel senso che si tratta di una riga contenente informazioni per la
-shell che non deve essere interpretata ma perfettamente ignorata come se fosse
-un commento.
+percorso dell'eseguibile\footnote{Se non fosse standard la struttura delle
+  directory principali di un sistema di tipo Unix la sha~bang di uno script
+  dovrebbe adattarsi al sistema operativo.}. Quasi tutti i linguaggi di
+scripting supportano la sha~bang nel senso che si tratta di una riga contenente
+informazioni per la shell che non deve essere interpretata ma perfettamente
+ignorata come se fosse un commento.
 
 Con questo trucco il nome del file dello script diventa un comando,
 esattamente come quelli di sistema compilati. Per di più nella maggior parte
@@ -157,9 +159,8 @@ il download.
 Operativamente, l'esecuzione di uno script siffatto è molto più immediata che
 non utilizzare un programma ad interfaccia grafica che supporti il protocollo
 \texttt{ftp} (\emph{file transfert protocol}). Definiamo dapprima la sintassi
-del comando \textt{curl} a cui ci affidiamo per le transazioni \texttt{ftp} e
-poi creiamo lo script con il linguaggio di shell:
-Bash.
+del comando \texttt{curl} a cui ci affidiamo per le transazioni \texttt{ftp} e
+poi creiamo lo script con il linguaggio di shell.
 \begin{Verbatim}
 $ curl -u <user>:<password> -T <file> <url destination path>
 \end{Verbatim}
@@ -167,17 +168,24 @@ $ curl -u <user>:<password> -T <file> <url destination path>
 Il programma \href{http://curl.haxx.se/}{curl} supporta un notevole numero di
 protocolli di rete. L'opzione \texttt{-u} inserisce le credenziali dell'utente
 presso il server, l'opzione \texttt{-T} indica che desideriamo procedere al
-caricamento del file verso la destinazione remota. Il formato della destinazione definisce anche il tipo di connessione che desideriamo stabilire che nel caso in
+caricamento del file verso la destinazione remota. Il formato della destinazione
+definisce anche il tipo di connessione che desideriamo stabilire che nel caso in
 esame sarà una connessione \texttt{ftp}.
 
-Dopo aver indicato che si tratta di uno script per Bash\footnote{Nei moderni
-  sistemi Unix il programma \texttt{sh} non è altro che un collegamento al
-  programma \texttt{bash}, la Bourne Again Shell divenuta lo standard tra le
-  shell disponibili per i sistemi aperti ed anche per quelli Mac.} per mezzo
-della Sha~Bang, definiamo le variabili per il percorso di destinazione sul
-server remoto così da facilitare eventuali modifiche e, per mezzo di un ciclo
-esteso a tutti i file \texttt{pdf} contenuti nella cartella di lavoro,
-eseguiamo uno alla volta l'upload dei documenti delle guide.
+Dopo aver indicato che si tratta di uno script per la shell di
+sistema\footnote{Nei moderni sistemi Unix \texttt{sh} è un collegamento ad una
+  shell standard POSIX con cui possono essere prodotti script in grado di essere
+  eseguiti correttamente su diversi sistemi operativi della famiglia. Se si
+  desidera usufruire delle funzionalità aggiuntive di alcune shell come
+  \texttt{bash}, la Bourne Again Shell, al prezzo di perdere la portabilità è
+  sufficiente utilizzare la sha~bang \texttt{\#!/bin/bash}.  Per esempio,
+  le distribuzioni Debian e derivate come Ubuntu, per motivi di efficienza
+  preferiscono assegnare \texttt{sh} alla shell \texttt{Dash} più snella e
+  performante specie nel accorciare i tempi di avvio.} per mezzo della Sha~Bang,
+definiamo le variabili per il percorso di destinazione sul server remoto così da
+facilitarne la modifica e, per mezzo di un ciclo esteso a tutti i file
+\texttt{pdf} contenuti nella cartella di lavoro, eseguiamo uno alla volta
+l'upload dei documenti delle guide.
 
 Di seguito è riportato il codice dello script. Si noti come l'uso delle
 variabili avviene con una modalità di espansione premettendo il carattere
