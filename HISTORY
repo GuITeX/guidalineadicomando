@@ -1,10 +1,23 @@
 HISTORY
 
-Versione 1.2.1 - 2012 01 05
+Versione 1.2.2 - 2013 01 18
+In questa versione sono state aggiunte un paio di sezioni al capitolo sugli
+argomenti avanzati: una per la spiegazione di come aprire al volo una sessione
+di terminale da una finestra dell'ambiente grafico, ed una per spiegare come
+creare cartelle ramificate con un unico comando.
+Sono state apportate migliorie anche alle pagine introduttive del capitolo
+sullo scripting, a cui si è aggiunto un nuovo esempio "Ritagliare le immagini"
+da un'idea apparsa sul forum del GuIT di Marco87 e Francesco Biccari, con
+l'illustrazione di come mettere a disposizione i nostri script tra i menù
+dell'ambiente grafico.
+Si è anche corretto un refuso segnalato da Giordano Mosé.
+Grazie a tutti per i contibuti!
+
+Versione 1.2.1 - 2013 01 05
 Precisazioni sulla shell di sistema sh ed altri miglioramenti al capitolo sullo
 scripting, su segnalazione attraverso il GuIT forum di Giordano Mosé. Grazie!
 
-Versione 1.2 - 2012 01 03
+Versione 1.2 - 2013 01 03
 Nuova impaginazione ad 80 caratteri per linea per facilitare il confronto tra
 le versioni dello stesso file nel repository git.
 Nuova organizzazione della sezione avanzata con il nuovo capitolo sullo

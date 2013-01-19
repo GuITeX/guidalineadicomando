@@ -14,10 +14,10 @@ eseguito direttamente da un interprete
 \end{tcolorbox}
 
 Quello che caratterizza lo scripting rispetto all'attività alla riga di
-comando descritta fino ad ora è dunque la scrittura di un \emph{programma}
-vero e proprio la cui sintassi dovrà essere conforme ad uno specifico
-linguaggio che non prevede la dichiarazione preventiva del tipo di dato, che
-viene invece stabilito \emph{dinamicamente} durante l'esecuzione.
+comando descritta fino ad ora è dunque la scrittura di un vero e proprio
+\emph{programma} il cui codice dovrà essere conforme ad uno specifico
+linguaggio che normalmente non prevede la dichiarazione preventiva del tipo di
+dato che viene invece stabilito \emph{dinamicamente} durante l'esecuzione.
 
 Per esempio, l'assegnazione di un intero e di una stringa è qualcosa di simile
 al seguente frammento di codice:
@@ -27,27 +27,30 @@ s = "dieci"    % invece di:  string s = "dieci"
 \end{Verbatim}
 
 L'esecuzione del codice viene affidata ad un \emph{interprete} che lo
-elabora direttamente secondo una procedura anche molto sofisticata che rende
-davvero minima la differenza dei linguaggi di scripting più moderni dai
-linguaggi compilati il cui codice invece tradotto in una forma binaria
-memorizzata in un file oggetto che sarà poi quello eseguito effettivamente.
+elabora direttamente secondo una procedura anche molto sofisticata e che rende
+davvero minima la differenza tra i moderni linguaggi di scripting e quelli
+compilati il cui codice viene invece tradotto in una forma binaria
+memorizzata in un file oggetto che sarà poi l'eseguibile effettivo.
 Questa sempre più sfumata distinzione tra linguaggi interpretati e compilati è
 dovuta al fatto che molto spesso anche i primi traducono il sorgente in
 una forma binaria intermedia per ambienti di esecuzione detti \emph{macchine
-virtuali}.
+virtuali}. Inoltre la tipizzazione dinamica dei dati non è un'esclusiva dei
+linguaggi di scripting. Pensato per la programmazione di sistema il
+\href{http://golang.org/}{Go}, l'ambiente open~source di sviluppo di Google,
+prevede l'operatore \texttt{:=} per l'assegnamento dinamico.
 
-La shell dei più diffusi sistemi operativi offre un linguaggio di
+La shell del sistema operativo in uso offre generalmente un linguaggio di
 scripting predefinito. Non vi è alcuna differenza concettuale se il codice
 viene digitato direttamente al prompt dei comandi oppure letto da un file di
-testo che assume il nome di \emph{script}.
+testo --- che assume il nome di \emph{script}.
 
 I linguaggi di scripting più conosciuti sono
 \href{http://www.python.org/}{Python}, \href{http://www.lua.org/}{Lua},
 \href{http://www.perl.org/}{Perl}, \href{http://www.ruby-lang.org/}{Ruby},
 \href{http://www.falconpl.org/}{Falcon},
 \href{http://it.wikipedia.org/wiki/JavaScript}{Javascript}, eccetera. Quasi
-sempre si tratta di software libero disponibile per le piattaforme più diffuse
-tra cui ovviamente i sistemi Windows, Linux ed OS X.
+sempre si tratta di software libero disponibile per le piattaforme desktop più
+diffuse tra cui ovviamente i sistemi Windows, Linux ed OS~X.
 
 \section{Sha bang\#!}
 
@@ -65,8 +68,8 @@ se l'estensione è stata associata al corrispondente eseguibile dell'interprete
 tramite il riconoscimento automatico degli ambienti ad interfaccia grafica di
 Linux e Mac od il registro di sistema in Windows.
 
-Sui sistemi di tipo Unix --- come Linux ed OS X --- la risposta alla domanda
-iniziale può tuttavia essere molto semplice: inserire il riferimento
+Sui sistemi di tipo Unix --- come Linux ed OS~X --- la risposta alla domanda
+iniziale può tuttavia essere molto semplice: si inserisce il riferimento
 all'interprete corretto all'interno dello script stesso --- generalmente nella
 prima riga --- ed è proprio quello che rappresenta la così detta
 \emph{sha~bang}, formata dalla coppia di caratteri \texttt{\#!} seguiti dal
@@ -85,7 +88,7 @@ dall'utente al terminale.
 Immaginiamo uno script in linguaggio Lua contenuto nel file \texttt{compila}
 che accetti un argomento. Per eseguirlo possiamo dare il comando:
 \begin{Verbatim}
-$ lua compila dir  % se il sistema non supporta la sha bang  
+$ lua compila dir  % se il sistema non supporta la sha bang
 $ compila dir      % se invece si
 \end{Verbatim}
 
@@ -104,8 +107,8 @@ interfaccia grafica, scegliendo tra molti ed efficienti linguaggi e librerie.
 \label{sssec:addheader}
 
 Supponiamo di aver scritto diverso tempo fa dei sorgenti \LaTeX, quando ancora
-non conoscevamo l'editor TeX Works. In quei file ovviamente non sono presenti le
-righe magiche che TeX Works riesce ad interpretare impostando codifica e
+non conoscevamo l'editor TeX~Works. In quei file ovviamente non sono presenti le
+righe magiche che TeX~Works riesce ad interpretare impostando codifica e
 programma di composizione, ed oggi, a distanza di tempo, vorremmo aggiungerle a
 ciascuno di quei file \texttt{.tex}.
 
@@ -174,15 +177,16 @@ esame sarà una connessione \texttt{ftp}.
 
 Dopo aver indicato che si tratta di uno script per la shell di
 sistema\footnote{Nei moderni sistemi Unix \texttt{sh} è un collegamento ad una
-  shell standard POSIX con cui possono essere prodotti script in grado di essere
-  eseguiti correttamente su diversi sistemi operativi della famiglia. Se si
-  desidera usufruire delle funzionalità aggiuntive di alcune shell come
-  \texttt{bash}, la Bourne Again Shell, al prezzo di perdere la portabilità è
-  sufficiente utilizzare la sha~bang \texttt{\#!/bin/bash}.  Per esempio,
-  le distribuzioni Debian e derivate come Ubuntu, per motivi di efficienza
-  preferiscono assegnare \texttt{sh} alla shell \texttt{Dash} più snella e
-  performante specie nel accorciare i tempi di avvio.} per mezzo della Sha~Bang,
-definiamo le variabili per il percorso di destinazione sul server remoto così da
+  shell standard \href{http://it.wikipedia.org/wiki/POSIX}{POSIX} con cui
+  possono essere prodotti script in grado di essere eseguiti correttamente su
+  diversi sistemi operativi della famiglia. Se si desidera usufruire delle
+  funzionalità aggiuntive di alcune shell come \texttt{bash}, la Bourne Again
+  Shell, al prezzo di perdere la portabilità, è sufficiente utilizzare la
+  sha~bang \texttt{\#!/bin/bash}.  Le distribuzioni Debian e derivate come
+  Ubuntu, per motivi di efficienza preferiscono assegnare \texttt{sh} alla
+  shell \texttt{Dash}, la Debian Almquist shell, più snella e performante
+  specie nell'accorciare i tempi di avvio.} per mezzo della Sha~Bang, definiamo
+le variabili per il percorso di destinazione sul server remoto così da
 facilitarne la modifica e, per mezzo di un ciclo esteso a tutti i file
 \texttt{pdf} contenuti nella cartella di lavoro, eseguiamo uno alla volta
 l'upload dei documenti delle guide.
@@ -240,7 +244,7 @@ end
 
 prt "Titolo:  Guida tematica alla riga di comando"
 prt "Collana: Le guide tematiche del GuIT"
-prt "eccetera..."
+prt "..."
 \end{Verbatim}
 Al solito, per costruire lo script, salviamo il codice nel file
 \texttt{centermsg} rendendolo eseguibile con \texttt{chmode} se siamo in
@@ -253,3 +257,83 @@ Ricordo che in Lua se una funzione, come in questo caso \texttt{prt}, prevede
 un unico argomento di tipo stringa o tabella, possiamo omettere le parentesi
 tonde.
 
+% contributo dal forum del GuIT di Marco87 e Francesco Biccari
+% http://www.guitex.org/home/it/forum/6-altri-programmi/81066-risolto-crop-e-scontorno
+% per il file batch per Windows con pdfcrop
+\subsection{Ritagliare le immagini}
+\label{subsec}
+
+Abbiamo incontrato il programma \texttt{pdfcrop} nella
+sezione~\ref{secInstVer} della guida, per ritagliare in modo automatico i bordi
+bianchi --- privi di contenuto --- da un documento \texttt{pdf}. Il codice
+seguente, se inserito in un file di estensione \texttt{.bat}, diventa uno
+script per Windows che scontorna tutti i file \texttt{pdf} presenti nella
+cartella di lavoro conservando una copia dell'originale con il suffisso
+\texttt{\_old}:
+\begin{Verbatim}
+@echo off
+echo Cropping...
+FOR %%A IN (%*) DO (
+   echo %%A
+   IF /I %%~xA==.pdf (
+      copy /Y %%A "%%~nA_old.pdf"
+      cd "%%~dA%%~pA"
+      pdfcrop.exe --margins 1 "%%~nA_old.pdf" "%%~nA.pdf"
+   )
+)
+\end{Verbatim}
+
+Notare come mentre nella shell di Unix i blocchi di comandi sono individuati
+da una chiave finale come \texttt{end} o \texttt{done}, nel linguaggio di
+scripting di Windows sono invece racchiusi da parentesi tonde, ma la sostanza
+non cambia di molto.
+
+Una scorciatoia per l'avvio dello script su una selezione di file eseguita con
+il mouse, è quella di salvare il file corrispondente nella cartella che si
+apre premendo il tasto \keys{Windows} e digitando nella casella di testo
+\texttt{shell:sendto} \keys{\return}. Il nome dello script comparirà nel menù
+contestuale pronto a lavorare sui file selezionati.
+
+Anche su Linux è possibile fare una cosa simile, inserendo i file degli script
+nella cartella \texttt{home/.gnome2/nautilus-script}, così che appariranno
+altrettante voci nel menù ``Script'' --- almeno per Gnome con il suo gestore
+di finestre Nautilus. Agli script verranno passati i nomi dei file selezionati
+via mouse attraverso normali variabili di shell dai nomi prefissati.
+
+Per esempio, uno script Lua che elaborasse questa lista di file potrebbe
+contenere il seguente codice:
+\begin{Verbatim}
+-- ottengo la lista dei file
+local s = os.getenv("NAUTILUS_SCRIPT_SELECTED_FILE_PATHS")
+
+-- elaboro i singoli file
+for path in string.gmatch(s,"(.-)\n") do
+-- qualcosa con il file di percorso <path>
+-- ...
+end
+\end{Verbatim}
+
+Con la shell l'elenco dei file è disponibile anche nella variabile
+\texttt{arg}. Uno script che volesse elencare i file della selezione in un
+file di testo e comunicare all'utente in una finestra grafica sfruttando
+\href{http://live.gnome.org/Zenity}{Zenity} ---  una libreria multipiattaforma
+che permette l'esecuzione di finestre di dialogo GTK+ --- il messaggio con il
+loro numero, potrebbe essere il seguente:
+\begin{Verbatim}
+#!/bin/sh
+
+for arg do
+    echo "$arg"
+done >> listoffiles.txt
+
+zenity --info --width=200 --height=100 \
+       --title="Conteggio files elencati" \
+       --text="Numero di file elencati: $# "
+\end{Verbatim}
+
+Ricordatevi di dare i permessi di esecuzione ai file di script altrimenti non
+risulteranno nemmeno tra le voci del menù contestuale dell'ambiente grafico.
+
+
+
+% end of file :-)

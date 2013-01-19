@@ -1,5 +1,5 @@
 Guida alla riga di comando
-===========================
+==========================
 
 Questo repository contiene i sorgenti LaTeX della Guida tematica alla riga di comando.
 La guida fa parte del progetto *Guide Tematiche* per la diffusione di documentazione di alta qualità centrata su argomenti specifici sul sistema TeX, condotto dal Gruppo Italiano di utilizzatori di TeX [www.guitex.org](http://www.guitex.org).
@@ -23,7 +23,10 @@ Con l'intento di rendere lo sviluppo delle guide tematiche *collaborativo* è sta
 Compilazione dei sorgenti della guida
 -------------------------------------
 
-Per la compilazione con *pdflatex* è necessario scaricare i file della classe 'guidatematica.cls' disponibile nel [repo GuITeX](https://github.com/GuITeX "Repository GuITeX.org"), ed installarli nell'albero locale della propria distribuzione TeX.
+Per la compilazione con *pdflatex* è necessario scaricare i file della classe
+'guidatematica.cls' disponibile nel [repo GuITeX](https://github.com/GuITeX
+"Repository GuITeX.org"), ed installarli nell'albero locale della propria
+distribuzione TeX, oppure nella stessa cartella dei sorgenti (in questo caso il file .gitignore elenca questi file di classe per evitare sovrapposizioni nei repository git).
 
 I file sorgenti sono dotati delle righe magiche per la predisposizione alla compilazione con l'editor TeX Works od altri editor che supportano tale funzionalità.
 

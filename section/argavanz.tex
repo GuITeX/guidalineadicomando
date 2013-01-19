@@ -7,15 +7,76 @@
 
 In questo capitolo presenterò alcune procedure avanzate che sfruttano la riga di
 comando per compiere operazioni altrimenti noiose, ripetitive o troppo lunghe da
-svolgere con altri strumenti. Si tratta di una collezione di casi pratici
-risolti con l'uso avanzato della riga di comando che si dimostra essere un
-sistema molto potente.
+svolgere con altri strumenti. Si tratta di una collezione di scorciatoie e casi
+pratici risolti con l'uso avanzato della riga di comando che si dimostra essere
+un sistema molto potente.
 
 % TODO: argomenti ancora da scrivere ed inserire
-%\section{Creazione di cartelle ramificate}
-%\section{Aprire il terminale da una cartella}
 %\section{Redirezione dei dati}
 %\section{Operare con i diritti di root}
+%\section{Ottenere aiuto sui comandi}
+
+\section{Creazione di cartelle ramificate}
+\label{secMkdir}
+ 
+Con il comando \texttt{mkdir} è semplice creare cartelle dalla riga di
+comando. Nella forma più semplice è sufficiente digitare il nome della directory
+come unico argomento:
+\begin{verbatim}
+$ mkdir <nome cartella>
+\end{verbatim}
+La nuova directory verrà creata all'interno di quella di lavoro a meno che non
+venga specificato un percorso completo --- se si desidera includere spazi nel
+nome racchiuderlo tra i doppi apici. Possiamo creare più cartelle con lo stesso
+comando separandone il nome con caratteri \texttt{;} in Windows e con caratteri
+spazio in Os~X e Linux, ed anche creare cartelle ramificate scrivendo il
+percorso delle directory annidate. Ecco il comando con cui si intende creare la
+struttura del file system che ospiterà all'interno della directory di lavoro, i
+sorgenti di una tesi\footnote{Nei sitemi Os~X e Linux --- così detti Unix like
+  --- è necessario dare al comando l'opzione \texttt{-p} che sta per
+  \emph{parents}. Dare il comando di aiuto \texttt{mkdir {-}-help} per ottenere 
+  ulteriori informazioni.}:
+\begin{verbatim}
+> mkdir tesi\chapter; tesi\image; tesi\backup/01  % Windows
+$ mkdir -p tesi/chapter tesi/image tesi/backup/01 % Unix like
+\end{verbatim}
+
+\section{Aprire il terminale da una cartella}
+\label{secOpenTerminalHere}
+
+Quando avviamo una nuova sessione di console la directory di lavoro prestabilita
+è la \texttt{home} di sistema dell'utente.
+Da essa per raggiungere la posizione dei file di nostro interesse, occorre dare
+uno o più comandi \texttt{cd}. Sarebbe invece molto utile nell'ambiente grafico
+poter fare un click destro all'interno della finestra di una cartella e
+semplicemente selezionare la voce ``Apri nel terminale''.
+
+% dalla consultazione dei link:
+% http://askubuntu.com/questions/15058/right-click-to-open-a-terminal-in-kubuntu
+% http://forum.kde.org/viewtopic.php?f=224&t=99927
+In Linux con il desktop environment Gnome, per ritrovarsi questa funzionalità
+basta installare il pacchetto \texttt{nautilus-open-terminal} e riavviare
+subito dopo il gestore delle finestre con il comando \texttt{\$ nautilus -q}.
+Dolphin, il gestore delle finestre di \textsc{kde}, include già questa
+opzione: il menù contestuale della finestra vi presenterà infatti la voce
+\menu{Action > Open Terminal Here} oppure premete la combinazione di tasti
+\keys{\shift + F4}. Da notare che il tasto \keys{F4} mostra un terminale
+all'interno della finestra di Dolphin.
+
+% contributo di ansys dal forum del GuIT:
+% http://www.guitex.org/home/it/forum/10-corsi-e-didattica/73773-guida-tematica-alla-riga-di-comando
+In Windows~7, una volta resa attiva la finestra di Explorer aperta sulla
+cartella d'interesse, premendo il tasto \keys{\shift} possiamo fare un click
+destro all'interno di essa e dal menù contestuale scegliere la voce
+``Apri finestra di comando qui''.
+
+% dalla consultazione del link:
+% http://stackoverflow.com/questions/420456/open-terminal-here-in-mac-os-finder
+In OS~X occorre attivare il servizio specifico \menu{System Preferences > Keyboard >
+Keyboard Shortcuts > Services} spuntando ``New Terminal at Folder''. Inoltre
+l'applicazione Terminal aprirà una nuova finestra di console se si trascinerà
+su di essa (sulla sua icona) una cartella od un percorso.
+
 
 \section{Espressioni regolari}
 
